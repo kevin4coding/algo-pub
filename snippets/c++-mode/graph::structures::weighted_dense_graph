@@ -1,0 +1,15 @@
+# -*- mode: snippet -*-
+# name: graph::structures::weighted_dense_graph
+# key: graph::structures::weighted_dense_graph
+# --
+
+struct weighted_dense_graph {
+  vector<vector<optional<int>>> data;
+  vector<optional<int>> & operator [](int v) { return data.at(v); }
+  const vector<optional<int>> & operator [](int v) const { return data.at(v); }
+  weighted_dense_graph(std::size_t v) : data(v, vector<optional<int>>(v, optional<int>{})) {}
+};
+
+auto insert_edge = [](weighted_dense_graph& g, int u, int v, int w) {
+  g[u][v] = w;
+};

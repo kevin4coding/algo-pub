@@ -1,0 +1,14 @@
+# -*- mode: snippet -*-
+# name: debugIO::unordered_map
+# key: debugIO::unordered_map
+# --
+
+template <typename K, typename V>
+std::ostream& operator << (std::ostream& os, const unordered_map<K, V>& x) {
+  os << "[";
+  for (auto it = begin(x); it != end(x); ++it) {
+    os << (it == begin(x) ? "" : ", ") << *it;
+  }
+  os << "]";
+  return os;
+}

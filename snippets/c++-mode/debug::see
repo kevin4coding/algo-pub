@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: debug::see
+# key: debug::see
+# --
+
+#define see(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
+#define trace(x) (cout << see(x) << endl, x)
+#define traceX(x) x

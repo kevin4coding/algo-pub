@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: monoid::modular_plus_monoid
+# key: monoid::modular_plus_monoid
+# --
+template <class T, T mod>
+struct modular_plus_monoid {
+  typedef T value_type;
+  value_type unit() const { return value_type{}; }
+  value_type mult(value_type a, value_type b) const { return (a + b) % mod; }
+};

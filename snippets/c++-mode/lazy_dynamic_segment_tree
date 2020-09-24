@@ -1,0 +1,132 @@
+# -*- mode: snippet -*-	
+# name : lazyseg_dynamic
+# key : lazyseg_dynamic	
+# --
+
+
+template <typename T, std::size_t N = 2000000> 
+struct memory_pool {
+  std::array<T, N> pool = {};
+  std::size_t ptr;
+  memory_pool() : pool{}, ptr(0) {}
+  T *offer() { return &pool[ptr++]; }
+};
+
+
+# template <typename T> 
+# class memory_pool {
+#  public:
+#   std::array<T, 20000000> pool;
+#   int ptr = 0;
+#   T *offer() {
+#     return &pool[ptr++];
+#   }
+# };
+
+template <typename M, typename O>
+class tree_node {
+ public:
+  typedef typename M::T T;
+  typedef typename O::F F;
+  static constexpr M mon {};
+  static constexpr O op {}; 
+  static tree_node *build(int, int, T  = mon.unit(), F = op.identity(),
+                                  tree_node<M, O>* = nullptr, tree_node<M, O>* = nullptr);
+  
+ public:
+  int ll, rr;
+  T val; 
+  F f;
+  
+  tree_node* lch; 
+  tree_node* rch;
+ 
+  void push() {
+    grow();
+    val = op.apply(f, val);
+    if (ll + 1 != rr) {
+      lch->f = op.compose(f, lch->f);
+      rch->f = op.compose(f, rch->f);
+    }
+    f = op.identity();
+  }
+  
+  void retract() {
+    if (lch != nullptr) lch->retract();
+    if (rch != nullptr) rch->retract();
+    lch = nullptr;
+    rch = nullptr;
+  }
+  
+  void grow() {
+    if (ll == rr - 1) return;
+    if (lch == nullptr) lch = build(ll, (ll + rr) / 2);
+    if (rch == nullptr) rch = build((ll + rr) / 2, rr);
+  }
+};
+
+memory_pool<tree_node<plus_monoid, increment_operator_monoid> > mem_pool;
+
+
+template <typename M, typename O>
+tree_node<M, O>* tree_node<M, O>::build(int ll, int rr, T init_t, F init_f, tree_node<M, O>* lch, tree_node<M, O>* rch) {  
+  tree_node * ret  =  mem_pool.offer();
+  ret->ll  = ll;
+  ret->rr  = rr;
+  ret->val = init_t;
+  ret->f   = init_f;
+  ret->lch = lch;
+  ret->rch = rch;
+  return ret;
+}
+
+
+template <typename M, typename O>
+class lazy_dynamic_segment_tree {
+ private:
+  using T = typename tree_node<M, O>::T;
+  using F = typename tree_node<M, O>::F;  
+  static constexpr M mon = tree_node<M, O>::mon;
+  static constexpr O op  = tree_node<M, O>::op;  
+  tree_node<M, O> *root; 
+
+ public:
+  lazy_dynamic_segment_tree () = default;
+  
+  lazy_dynamic_segment_tree(int n) { root = tree_node<M, O>::build(0, n, 0, 0); }
+     
+  void range_apply(int ll, int rr, F v) { range_apply(root, ll, rr, v); }  
+  
+  T range_concat(int ll, int rr) const { return range_concat(root, ll, rr); }
+  
+
+ private:
+    T range_concat(tree_node<M, O> * node, int ll, int rr) const {
+    node->push();
+    if(ll >= node->rr || rr <= node->ll) {
+      return 0;
+    }          
+    if(ll <= node->ll && rr >= node->rr) {
+      return node->val;
+    }
+    return mon.append(range_concat(node->lch, ll, rr), range_concat(node->rch, ll, rr));
+  }
+
+  void range_apply(tree_node<M, O> * node, int ll, int rr, F v) {
+    tree_node<M, O> * &lch  = node->lch;
+    tree_node<M, O> * &rch  = node->rch;
+ppp    node->push();
+    if(ll >= node->rr || rr <= node->ll) {
+      
+    }
+    else if(ll <= node->ll && rr >= node->rr) {
+      node->f = op.compose(v, node->f);
+      node->push();
+    }      
+    else {
+      range_apply(lch, ll, rr, v);
+      range_apply(rch, ll, rr, v);
+      node->val = mon.append(lch->val, rch->val);
+    }
+  }
+};

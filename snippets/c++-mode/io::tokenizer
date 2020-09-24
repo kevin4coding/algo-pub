@@ -1,0 +1,47 @@
+# -*- mode: snippet -*-
+# name: io::tokenizer
+# key: io::tokenizer
+# --
+
+class tokenizer {
+ private:
+  string data_;
+  int cursor_;
+
+ public:
+  tokenizer(const string& str) : data_(str), cursor_(0){};
+
+ private:
+  void ready() {
+    if (data_[cursor_] == ' ' and cursor_ + 1 < size(data_)) {
+      cursor_++;
+      ready();
+    }
+  }
+  char read() { return data_[cursor_++]; };
+
+ public:
+  bool has_next() { return cursor_ < size(data_); }
+  char peek() { return cursor_ < size(data_) ? data_[cursor_] : '\n'; };
+
+
+  void consume() { read(); };
+  
+  template <typename T, typename std::enable_if_t<std::is_same_v<string, T>>* = nullptr>
+  T next() {
+    ready();
+    string result{};
+    while (has_next() and isalpha(peek()))
+      result.push_back(read());
+    return result;
+  }
+
+  template <typename T, typename std::enable_if_t<std::is_same_v<int, T>>* = nullptr>
+  T next() {
+    ready();
+    int acc = 0;
+    while (has_next() and isdigit(peek())) 
+      acc = (acc * 10) + read() - '0';
+    return acc;
+  }
+};

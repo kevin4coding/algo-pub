@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: io::debug::optional
+# key: io::debug::optional
+# --
+
+template <typename T>
+std::ostream& operator << (std::ostream& os, const optional<T>& x) {
+  if (x.has_value())
+    os << x.value();
+  else
+    os << "nothing";
+  return os;
+};

@@ -1,0 +1,28 @@
+# -*- mode: snippet -*-
+# name: data_structure::binary_index_tree
+# key: data_structure::binary_index_tree
+# --
+
+template <typename Monoid>
+struct binary_index_tree {
+  using value_type = typename Monoid::value_type;
+  
+  std::vector<value_type> data;
+  static constexpr Monoid mon = {};
+
+  binary_index_tree(std::size_t n) { data.resize(n, mon.unit()); }
+
+  static constexpr int lowbit(int i) { return i & (-i); }
+
+  void point_append(std::size_t i, value_type val) { // data[i] += z
+    for (std::size_t j = i + 1; j <= std::size(data); j += lowbit(j)) 
+      data[j - 1] = mon.mult(data[j - 1], val);
+  }
+
+  value_type initial_range_concat(std::size_t i) {   // [0, i)
+    value_type acc = mon.unit();
+    for (std::size_t j = i; j >= 1; j -= lowbit(j)) 
+      acc = mon.mult(data[j - 1], acc);
+    return acc;
+  }
+};

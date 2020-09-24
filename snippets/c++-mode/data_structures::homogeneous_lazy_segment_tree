@@ -1,0 +1,71 @@
+# -*- mode: snippet -*-
+# name: data_structures::homogeneous_lazy_segment_tree
+# key: data_structures::homogeneous_lazy_segment_tree
+# --
+
+template <class Monoid>
+class homogeneous_lazy_segment_tree {
+ private:
+  typedef typename Monoid::value_type value_type;
+  static constexpr auto mon = Monoid{};
+
+ private:
+  mutable std::size_t n_;
+  mutable std::vector<value_type> f_;
+
+ public:
+  homogeneous_lazy_segment_tree() = default;
+  homogeneous_lazy_segment_tree(std::size_t n) { resize(n); }
+
+  template <class InputIterator>
+  homogeneous_lazy_segment_tree(InputIterator first, InputIterator last) {
+    resize(std::distance(first, last));
+    std::copy(first, last, f_.begin() + (n_ - 1));
+  }
+
+  void resize(std::size_t n, std::optional<value_type> value = {}) {
+    n_ = 1 << (32 - __builtin_clz(n));
+    f_.resize(2 * n_ - 1, mon.unit());
+    if (value)
+      range_apply(0, n_, *value);
+  }
+  
+  value_type fast_point_get(int i) const { 
+    value_type acc = mon.unit();
+    for (i += n_; i > 0; i /= 2) 
+      acc = mon.mult(f_[i - 1], acc);
+    return acc;
+  }
+  
+  value_type point_get(int i) const { return range_get(0, 0, n_, i, i + 1); }
+  void point_apply(int i, value_type g) { range_apply(i, i + 1, g); }
+  void range_apply(int l, int r, value_type g) { range_apply(0, 0, n_, l, r, g); }
+
+ private:
+  value_type range_get(int i, int il, int ir, int l, int r) const {
+    if (l <= il and ir <= r)
+      return f_[i];
+    else if (ir <= l or il >= r)
+      return mon.unit();
+    else {
+      const auto lacc = range_get(2 * i + 1, il, (il + ir) / 2, l, r);
+      const auto racc = range_get(2 * i + 2, (il + ir) / 2, ir, l, r);
+      return mon.mult(f_[i], mon.mult(lacc, racc));
+    }
+  }
+
+  void range_apply(int i, int il, int ir, int l, int r, value_type g) {
+    if (l <= il and ir <= r) {  // 0-based
+      f_[i] = mon.mult(g, f_[i]);
+    } else if (ir <= l or r <= il) {
+      // nop
+    } else {
+      range_apply(2 * i + 1, il, (il + ir) / 2, 0, n_, f_[i]);
+      range_apply(2 * i + 2, (il + ir) / 2, ir, 0, n_, f_[i]);
+      f_[i] = mon.unit();
+      range_apply(2 * i + 1, il, (il + ir) / 2, l, r, g);
+      range_apply(2 * i + 2, (il + ir) / 2, ir, l, r, g);
+    }
+  }
+
+};

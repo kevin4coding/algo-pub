@@ -1,0 +1,44 @@
+# -*- mode: snippet -*-
+# name: data_structures::sparse_table
+# key: data_structures::sparse_table
+# --
+
+template <class SemiLattice>
+struct sparse_table {
+  typedef typename SemiLattice::value_type value_type;
+  static constexpr auto lat = SemiLattice{};
+  const std::vector<value_type> data_view;
+  mutable std::vector<std::vector<std::optional<value_type>>> memo;
+  
+  sparse_table() = default;
+
+  sparse_table(const std::vector<value_type> & data) : data_view(begin(data), end(data)),
+                                                       memo(32 - __builtin_clz(std::size(data)),
+                                                            std::vector<std::optional<int>>(size(data))) {}
+
+  template <class InputIterator>
+  sparse_table(InputIterator first, InputIterator last) : data_view(first, end),
+                                                          memo(32 - __builtin_clz(std::distance(first, last)),
+                                                               std::vector<std::optional<int>>(std::distance(first, last))) {}
+  
+  value_type f(int k, int i) {
+    if (memo[k][i])
+      return memo[k][i].value();
+    else
+      return *(memo[k][i] = [&]() {
+        if (k == 0)
+          return data_view[i];
+        else if (k != 0 and (i + (1ll << (k - 1))) >= data_view.size())
+          return lat.unit();
+        else
+          return lat.mult(f(k - 1, i), f(k - 1, i + (1ll << (k - 1))));
+      }());
+  };
+
+  value_type range_get(int l, int r) {
+    if (l == r) return lat.unit(); 
+    const int k = 31 - __builtin_clz(r - l); 
+    return lat.mult(f(k, l), f(k, r - (1ll << k)));
+  }
+
+};

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: speedup
+# key: speedup
+# --
+
+#pragma GCC optimize ("O3")
+#pragma GCC target ("sse4.1")
+static const int _ = []() { return (ios::sync_with_stdio(false), cin.tie(nullptr), 0); }();

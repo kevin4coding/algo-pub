@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: utils::array::index_tracker
+# key: utils::array::index_tracker
+# --
+
+template <typename T, typename F>
+vector<int> index_tracker(const T &x, F&& f, vector<int> result = {}) {
+  for (int i = 0; i < size(x); ++i) if (f(x[i])) result.emplace_back(i);
+  return result;
+}

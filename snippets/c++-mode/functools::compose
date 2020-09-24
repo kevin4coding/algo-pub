@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: functools::compose
+# key: functools::compose
+# --
+
+template<class F, class... Gs> auto compose(F &&f, Gs &&... gs) {
+  return [f, gs...](auto &&...args) {
+    return f(gs(std::forward<decltype(args)>(args)...)...);
+  };
+}
+

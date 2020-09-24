@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: math::base_conversion::to_n_ary
+# key: math::base_conversion::to_n_ary
+# --
+
+function<int(int, int)> to_n_ary = [&] (int x, int base) {
+  if (x == 0)
+    return 0;
+  else
+    return x % base + 10 * to_n_ary(x / base, base);
+};

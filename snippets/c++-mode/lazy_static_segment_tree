@@ -1,0 +1,104 @@
+# -*- mode: snippet -*-	
+# name : lazyseg_static
+# key : lazyseg_static
+# --
+
+template <typename M, typename O>
+class lazy_static_segment_tree { // on monoids
+ private:
+  using T = typename M::T;
+  using F = typename O::F;
+  static constexpr M mon {};
+  static constexpr O op  {};
+  int n;
+  std::vector<T> node;
+  std::vector<F> f;
+
+
+ public:
+  lazy_static_segment_tree() = default;
+  
+  lazy_static_segment_tree(int a_n, T init_tval = mon.unit(), F init_fval = op.identity()) {
+    n = 1;
+    while (n <= a_n) n *= 2;
+    node.resize(2 * n - 1, init_tval);
+    f.resize(std::max(0, (2 * n - 1) - n), init_fval);
+    for (int i = n - 1 - 1; i >= 0; --i)
+      node[i] = mon.append(node[2 * i + 1], node[2 * i + 2]); // propagate initial values
+
+  }
+
+  void point_set(int i, T z) { point_set(0, 0, n, i, z); }
+
+  void range_apply(int l, int r, F z) { range_apply(0, 0, n, l, r, z); }
+
+  void resize(int a_n, T init_tval = mon.unit(), F init_fval = op.identity()) {
+    n = 1;
+    while (n <= a_n) n *= 2;
+    node.resize(2 * n - 1, init_tval);
+    f.resize(std::max(0, (2 * n - 1) - n), init_fval);
+    for (int i = n - 1 - 1; i >= 0; --i)
+      node[i] = mon.append(node[2 * i + 1], node[2 * i + 2]); // propagate initial values
+  }
+
+  T range_concat(int l, int r) const{ return range_concat(0, 0, n, l, r); }
+
+
+  T fast_range_concat(int l, int r) {
+    T lacc = mon.unit(), racc = mon.unit();
+    for (int l1 = (l += n), r1 = (r += n) - 1; l1 > 1; l /= 2, r /= 2, l1 /= 2, r1 /= 2) { 
+      if (l < r) {
+        if (l % 2 == 1) lacc = mon.append(lacc, node[(l ++) - 1]);
+        if (r % 2 == 1) racc = mon.append(node[(-- r) - 1], racc);
+      }
+      lacc = op.apply(f[l1 / 2 - 1], lacc);
+      racc = op.apply(f[r1 / 2 - 1], racc);
+    }
+    return mon.append(lacc, racc);
+  }
+
+ private:
+  void range_apply(int i, int il, int ir, int l, int r, F z) {
+    if (l <= il and ir <= r) { // 0-based
+      node[i] = op.apply(z, node[i]);
+      if (i < f.size()) f[i] = op.compose(z, f[i]);
+    } else if (ir <= l or r <= il) {
+      // nop
+    } else {
+      range_apply(2 * i + 1, il, (il + ir) / 2, 0, n, f[i]);
+      range_apply(2 * i + 2, (il + ir) / 2, ir, 0, n, f[i]);
+      f[i] = op.identity();
+      range_apply(2 * i + 1, il, (il + ir) / 2, l, r, z);
+      range_apply(2 * i + 2, (il + ir) / 2, ir, l, r, z);
+      node[i] = mon.append(node[2 * i + 1], node[2 * i + 2]);
+    }
+  }
+  
+  T range_concat(int i, int il, int ir, int l, int r) const {
+    if(l <= il and ir <= r) {
+      return node[i];
+    }
+    else if (ir <= l or il >= r) {
+      return mon.unit();
+    }
+    else {
+      T lacc = range_concat(2 * i + 1, il, (il + ir) / 2, l, r);
+      T racc = range_concat(2 * i + 2, (il + ir) / 2, ir, l, r);
+      return op.apply(f[i], mon.append(lacc, racc));
+    }
+  }
+
+  void point_set(int i, int il, int ir, int j, T z) {
+    if (i == n + j - 1) { // 0-based
+      node[i] = z;
+    } else if (ir <= j or j+1 <= il) {
+      //     } else {
+      range_apply(2 * i + 1, il, (il + ir) / 2, 0, n, f[i]);
+      range_apply(2 * i + 2, (il + ir) / 2, ir, 0, n, f[i]);
+      f[i] = op.identity();
+      point_set(2 * i + 1, il, (il + ir) / 2, j, z);
+      point_set(2 * i + 2, (il + ir) / 2, ir, j, z);
+      node[i] = mon.append(node[2 * i + 1], node[2 * i + 2]);
+    }
+  }
+};

@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-	
+# name : iterseg
+# key : iterseg
+# --
+
+template <typename M>
+class iterative_segment_tree {
+ public:
+  using T = typename M::T;
+  static constexpr M mon {};
+  size_t n;
+  std::vector<T> t;
+
+ private:
+  static constexpr size_t parent(size_t i) { return (i - 1) >> 1; }
+  static constexpr size_t lch(size_t i) { return (i << 1) + 1; }
+  static constexpr size_t rch(size_t i) { return (i << 1) + 2; }
+
+ public:
+  iterative_segment_tree() = default;
+
+  void point_apply(size_t i, const function<void(T&)>& z) {
+    z(t[n + i - 1]);
+    for (size_t j = parent(n + i - 1); j > 0; j = parent(j)) {
+      t[j] = mon.append(t[lch(j)], t[rch(j)]);
+    }
+  }
+
+  void resize(size_t a_n, T init_tval = mon.unit()) {
+    n = 1 << (32 - __builtin_clz(a_n));
+    t.resize((n << 1) - 1, init_tval);
+    for (int i = n - 1 - 1; i >= 0; --i)
+      t[i] = mon.append(t[lch(i)], t[rch(i)]); // propagate initial values
+  }
+  
+
+  T range_concat(size_t l, size_t r) { // 0-based, [l, r)
+    T lacc = mon.unit(), racc = mon.unit();
+    for (int ll = n + l - 1, rr = n + r - 1; ll < rr; ll = parent(ll), rr = parent(rr)) {
+      if (not (ll & 1)) lacc = mon.append(lacc, t[ll++]);
+      if (not (rr & 1)) racc = mon.append(racc, t[--rr]);
+    }
+    return mon.append(lacc, racc);
+  }
+}; 

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: monoid::actions::plus_max_action
+# key: monoid::actions::plus_max_action
+# --
+
+template <class T>
+struct plus_max_action {
+  typename max_monoid<T>::value_type operator()(typename plus_monoid<T>::value_type f,
+                                                typename max_monoid<T>::value_type x) const {
+    return (x == max_monoid<T>().unit() ? x : f + x);
+  }
+};

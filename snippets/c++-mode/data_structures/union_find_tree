@@ -1,0 +1,42 @@
+# -*- mode: snippet -*-
+# name: data_structures::union_find_tree
+# key: data_structures::union_find_tree
+# --
+
+struct union_find_tree {
+  mutable std::vector<int> data;
+
+  union_find_tree() = default;
+  explicit union_find_tree(std::size_t n) : data(n, -1) {}
+
+  bool is_root(int i) {
+    return data[i] < 0;
+  }
+
+  void resize(std::size_t n) {
+    data.resize(n, -1);
+  }
+
+  int find_root(int i) {
+    return is_root(i) ? i : data[i] = find_root(data[i]);
+  }
+  
+  int tree_size(int i) {
+    return -data[find_root(i)];
+  }
+
+  bool merge(int i, int j) {
+    auto [root_i, root_j] = std::pair{find_root(i), find_root(j)};
+    if (root_i == root_j) {
+      return false;
+    }
+    else {
+      if (tree_size(root_i) < tree_size(root_j)) {
+        std::swap(root_i, root_j);
+      }
+      std::exchange(data[root_i], data[root_i] + data[root_j]);
+      std::exchange(data[root_j], root_i);
+      return true;
+    }
+  }
+};

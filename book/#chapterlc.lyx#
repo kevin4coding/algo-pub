@@ -1,0 +1,2346 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass scrartcl
+\begin_preamble
+\input{./texconfig.tex}
+\end_preamble
+\use_default_options true
+\master main.lyx
+\begin_modules
+theorems-ams
+theorems-sec
+theorems-ams-extended
+eqs-within-sections
+algorithm2e
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
+\graphics default
+\default_output_format pdf2
+\output_sync 1
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation landscape
+\suppress_date true
+\justification true
+\use_refstyle 1
+\use_minted 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\paperwidth 30cm
+\paperheight 20cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Part
+LeetCode 
+\end_layout
+
+\begin_layout Addsec
+LeetCode 27.
+ Remove Element
+\end_layout
+
+\begin_layout Paragraph
+Two Pointer
+\end_layout
+
+\begin_layout Standard
+Regular two pointer approach.
+ The implementation is routine.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{9043}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 53.
+ Maximum Subarray
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum subarray sum ending with 
+\begin_inset Formula $\var{nums[i]},$
+\end_inset
+
+, then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\var{nums[0]} & \text{if }i=0\\
+\max(f(i-1)+\var{nums[i]},\var{nums[i]}) & \mathrm{otherwise}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is 
+\begin_inset Formula $\max_{i=0}^{n-1}f(i),$
+\end_inset
+
+ where 
+\begin_inset Formula $n={\tt {std::size}(\var{nums}).}$
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18141}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 55.
+ Jump Game 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:55-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming 1 
+\begin_inset CommandInset label
+LatexCommand label
+name "par:55-dp1-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the reachability of index 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\mathrm{true} & \text{if }i=0\\
+\mathrm{true} & \text{if there exists }k\in[1,i-1]\text{ such that }f(k)=\mathrm{true}\text{ and }\texttt{nums}[k]+k\geq i\\
+\mathrm{false} & \mathrm{otherwise}.
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $f(i).$
+\end_inset
+
+ The overall runtime complexity is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+ and memory complexity is 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18138}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming 2 
+\begin_inset CommandInset label
+LatexCommand label
+name "par:55-dp2-1"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum distance that can be achieved from index 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\texttt{nums}[0] & \text{if }i=0\\
+\max(f(i-1),\texttt{nums}[i]+i) & \text{else if }f(i-1)\geq i\\
+f(i-1) & \text{otherwise }
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $\max_{i=0}^{n-1}f(i)\geq n-1.$
+\end_inset
+
+ The runtime complexity is 
+\begin_inset Formula $O(n)$
+\end_inset
+
+ and memory complexity is 
+\begin_inset Formula $O(n)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18138}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 66.
+ Plus One
+\end_layout
+
+\begin_layout Paragraph
+Simulation (Recursive) 
+\end_layout
+
+\begin_layout Standard
+We use a stateful recursive lambda, 
+\begin_inset Formula $f_{[\text{\var{carry},\var D}]}(i)$
+\end_inset
+
+, to recursively simulate the addition process, where 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the process at index 
+\begin_inset Formula $i$
+\end_inset
+
+, 
+\begin_inset Formula $\var{carry}$
+\end_inset
+
+ represents if a carry of one will be added in the current digit, and 
+\begin_inset Formula $\var D$
+\end_inset
+
+ is a mutable copy of 
+\begin_inset Formula $\var{digits}$
+\end_inset
+
+.
+ We start from 
+\begin_inset Formula $i=n-1$
+\end_inset
+
+, where 
+\begin_inset Formula $n={\tt {std::size(\var{digits})}.}$
+\end_inset
+
+ The implementation of 
+\begin_inset Formula $f$
+\end_inset
+
+ is routine.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18142}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 88.
+ Merge Sorted Array 
+\end_layout
+
+\begin_layout Paragraph
+Simulation (Recursive)
+\end_layout
+
+\begin_layout Standard
+We implement a function 
+\begin_inset Formula $f(i,n_{1},n_{2})$
+\end_inset
+
+ to recursively fill 
+\begin_inset Formula $\var{nums1}$
+\end_inset
+
+ backward putting 
+\begin_inset Formula $\var{nums1[i]}=\max(\var{nums1}[n_{1}],\var{nums2}[n_{2}]).$
+\end_inset
+
+ The implementation is routine.
+ The resulting runtime complexity is 
+\begin_inset Formula $O(n+m)$
+\end_inset
+
+ and memory complexity is 
+\begin_inset Formula $O(1)$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18143}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 265.
+ Paint House II
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming 1 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the minimum cost to paint all houses per the specification.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\var{costs}[0][j] & \mathrm{if\ }i=0\\
+\min_{k\in[0,k-1]\mathrm{\ and\ }k\neq j}\{\var{costs}[i][j]+f(i-1,k)\} & \mathrm{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The time complexity if 
+\begin_inset Formula $O(nk^{2}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming 2
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the minimum cost to paint all houses per the specification.
+ And 
+\begin_inset Formula $g(i)=\{{\tt {kth}(0,f([i][0,...,k-1]),{\tt {kth}(1,f([i][0,...,k-1])\}}}$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\var{costs}[0][j] & \mathrm{if\ }i=0,\\
+f(i,g(i-1)[1].{\tt {index})+\var{costs}[i][j]} & \mathrm{else\ if}\ g(i-1)[0].{\tt {index}=j}\\
+f(i,g(i-1)[0].{\tt {index})+\var{costs}[i][j]} & \mathrm{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The time complexity is 
+\begin_inset Formula $O(nk).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 276.
+ Paint Fence
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming 
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the total numbers of way to paint fences 
+\begin_inset Formula $[0,...,i]$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+k & \mathrm{if\ }i=0\\
+k^{2} & \mathrm{else\ if\ }i=1\\
+f(i-1)\times(k-1)+f(i-2)\times(k-1) & \mathrm{o.w.}
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where the two parts in the last transition function is to tackle with the
+ two cases where the 
+\begin_inset Formula $i$
+\end_inset
+
+th block has the same color as the 
+\begin_inset Formula $(i-1)$
+\end_inset
+
+th, in which case it must be difference from the 
+\begin_inset Formula $(i-2)$
+\end_inset
+
+th fence, and different color as the 
+\begin_inset Formula $(i-1)$
+\end_inset
+
+th fence.
+ 
+\end_layout
+
+\begin_layout Addsec
+LeetCode 300.
+ Longest Increasing Subsequence
+\end_layout
+
+\begin_layout Paragraph
+Patience Sorting
+\end_layout
+
+\begin_layout Standard
+There is a connection between the game of patience and and problem of LIS.
+ The minimum number of piles formed in the game of patience is equal to
+ the length of LIS.
+ For more details, see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:algo-patient-sorting"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ The time complexity is 
+\begin_inset Formula $O(n\log n)$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the length of the LIS ending at 
+\begin_inset Formula $\var{nums}[i]$
+\end_inset
+
+.
+ Then it follows that
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\max_{0\leq k\leq i-1\ \text{and\ }\var{nums}[k]<\var{nums}[i]}\{1+f(k)\} & \text{if }i>0\\
+1 & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is 
+\begin_inset Formula $\max_{0\leq i\leq n-1}f(i).$
+\end_inset
+
+ The overall run time complexity is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 312.
+ Burst Balloons
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the maximum coins after bursting 
+\begin_inset Formula $\var{nums}[i:j].$
+\end_inset
+
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\max_{i\leq k\leq k}\{\var{nums}[k]\cdot\var{nums}[i-1]\cdot\var{nums}[j+1]+f(i,k-1)+f(k+1,j)\} & \mathrm{if\ }i<j\\
+\var{nums}[i]\cdot\var{nums}[i-1]\cdot\var{nums}[i+1] & \mathrm{else\ if\ }i=j\\
+0 & \mathrm{else\ if\ }i>j
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $f(0,n-1),$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\fn{std::size}(\var{nums}).$
+\end_inset
+
+ Note that 
+\begin_inset Formula $\var{nums}[-1]$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{nums}[n]$
+\end_inset
+
+ is needs to be dealt with in the implementation if we don't pad 
+\begin_inset Formula $\var{nums}$
+\end_inset
+
+.
+ The overall running time is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 321.
+ Create Maximum Number
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming with Greedy and Monotone Stack
+\end_layout
+
+\begin_layout Standard
+We can decompose this problem into three parts.
+ The final solution of the problem is 
+\begin_inset Formula 
+\begin{equation}
+\min_{(i,j)\in[0,...,n_{1}]\times[0,...,n_{2}]\text{ and }i+j=k}\fn{merge}(g(\var{nums1},i),g(\var{nums2},j)).
+\end{equation}
+
+\end_inset
+
+There 
+\begin_inset Formula $g(A,k)$
+\end_inset
+
+ returns the largest 
+\begin_inset Formula $k$
+\end_inset
+
+ element subsequence in 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ And 
+\begin_inset Formula $\fn{merge}(A_{1},A_{2})$
+\end_inset
+
+ returns the largest sequentially merged array from 
+\begin_inset Formula $A_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $A_{2}$
+\end_inset
+
+ in term of lexicographical ordering.
+ Note that 
+\begin_inset Formula $g(A,k)$
+\end_inset
+
+ can be computed efficiently using a monotone stack, see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:monotone-stack-kth-elemnt-subseq"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ And 
+\begin_inset Formula $\fn{merge}$
+\end_inset
+
+ can be implemented using a greedy idea: we with 
+\begin_inset Formula $i=0$
+\end_inset
+
+ and 
+\begin_inset Formula $j=0$
+\end_inset
+
+ and an accumulator 
+\begin_inset Formula $\var{acc}$
+\end_inset
+
+ of result.
+ If 
+\begin_inset Formula $A_{1}[i:-1]\geq A_{2}[j:-1],$
+\end_inset
+
+ we accumulate 
+\begin_inset Formula $A_{1}[i]$
+\end_inset
+
+ into 
+\begin_inset Formula $\var{acc}$
+\end_inset
+
+ and increment 
+\begin_inset Formula $i$
+\end_inset
+
+, otherwise we merge 
+\begin_inset Formula $A_{2}[j]$
+\end_inset
+
+ into 
+\begin_inset Formula $\var{acc}$
+\end_inset
+
+ and increment 
+\begin_inset Formula $j$
+\end_inset
+
+.
+ The correctness of this merging algorithm can be proved using an exchange
+ argument.
+ The overall time complexity of this is 
+\begin_inset Formula $O(\max(n_{1},n_{2})^{2}k).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 322.
+ Coin Change
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(S)$
+\end_inset
+
+ denote the minimum number of coins needed to reach value 
+\begin_inset Formula $S.$
+\end_inset
+
+ Then we have f
+\begin_inset Formula 
+\begin{equation}
+f(S)=\begin{cases}
+\min_{c\in\var{coins}\ \text{and }S-c\geq0}\{1+f(S-c)\} & \text{if }S>0\\
+0 & \mathrm{else\ if}\ S=0
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where we let 
+\begin_inset Formula $\min(\emptyset):=+\infty$
+\end_inset
+
+ to handle the infeasible cases.
+ The time complexity is 
+\begin_inset Formula $O(nS),$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\fn{std::size}(\var{coins}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 338.
+ Counting Bits
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ be the number of 1's in 
+\begin_inset Formula $i$
+\end_inset
+
+'s binary representation.
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+0 & \If i=0\\
+1 & \mathrm{else\ if\ }i=1\\
+f(i/2) & \mathrm{else\ if\ }i\mathrm{\ is\ even}\\
+f(i-1)+1 & \mathrm{else\ if\ }i\ \text{is odd}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 343.
+ Integer Break
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum product for number 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+1 & \If i=1\\
+\max_{1\leq k\leq i-1}(k\cdot f(i-k),k\cdot(i-k)) & \ow
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer if then 
+\begin_inset Formula $f(n).$
+\end_inset
+
+ The overall runtime complexity is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 351.
+ Android Unlock Patterns
+\end_layout
+
+\begin_layout Paragraph
+Backtrack
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,k)$
+\end_inset
+
+ denote the number of possible patterns with length 
+\begin_inset Formula $k$
+\end_inset
+
+ that starts from 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then the final answer is 
+\begin_inset Formula $\sum_{i=1}^{9}\sum_{k=m}^{n}f(i,k)$
+\end_inset
+
+.
+ We note that 
+\begin_inset Formula $f(i,k)$
+\end_inset
+
+ can be computed using exhaustive search (backtrack).
+ We will also create a list 
+\begin_inset Formula $\var{blocks}$
+\end_inset
+
+ to keep track of the jumping across cases for every key; for example, 
+\begin_inset Formula $\var{blocks}[1][\{3,9,7\}]=\{2,5,4\}$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{blocks}[1][k]=\emptyset$
+\end_inset
+
+ for all other 
+\begin_inset Formula $k\in[1,...,9]\backslash\{3,9,7\}.$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Using the similar idea as before, we note that 
+\begin_inset Formula $f$
+\end_inset
+
+ can actually be memoized.
+ Let 
+\begin_inset Formula $f(S,k,l)$
+\end_inset
+
+ denote the number of possible patterns of length 
+\begin_inset Formula $l$
+\end_inset
+
+ staring from 
+\begin_inset Formula $k$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 354.
+ Russian Doll Envelopes
+\end_layout
+
+\begin_layout Paragraph
+Patience Sorting
+\end_layout
+
+\begin_layout Standard
+Convert this problem into a LIS problem on the last coordinate.
+ Note that LIS problem can be solved using the patience sorting algorithm
+ in 
+\begin_inset Formula $O(n\log n)$
+\end_inset
+
+ run time, see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:algo-patient-sorting"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 357.
+ Count Numbers with Unique Digits
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the counts of numbers with unique digits such that 
+\begin_inset Formula $0\leq x\leq10^{n}.$
+\end_inset
+
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+10 & \If i=1\\
+9\cdot9 & \text{else if }i=2\\
+f(i-1)\cdot(10-i+1) & \text{else if }i>2
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is then 
+\begin_inset Formula $\sum_{i=1}^{n}f(i).$
+\end_inset
+
+ We note that the special case of 
+\begin_inset Formula $n=0$
+\end_inset
+
+ is to be dealt with separately as a special case.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 361.
+ Bomb Enemy
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j,d)$
+\end_inset
+
+ denote the number of enemies that can be killed in direction 
+\begin_inset Formula $d$
+\end_inset
+
+ if the bomb is dropped in 
+\begin_inset Formula $\var{grid}[i][j].$
+\end_inset
+
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,j,d)=\begin{cases}
+0 & \If\var{grid}[i][j]=\var W\text{ or }\text{not }\fn{inbound}(i,j)\\
+1+f(i+\var{dr}[d],j+\var{dc}[d],d) & \text{else if }\var{grid}[i][j]=\var E\\
+f(i+\var{dr}[d],j+\var{dc}[d],d) & \text{else if }\var{grid}[i][j]=0
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final solution is 
+\begin_inset Formula $\max_{i,j\text{ and }\var{grid}[i][j]=0}\sum_{d}f(i,j,d)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 368.
+ Largest Divisible Subset
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+First we sort the 
+\begin_inset Formula $\var{nums}$
+\end_inset
+
+.
+ Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum divisible set size ending with 
+\begin_inset Formula $\var{nums}[i].$
+\end_inset
+
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+1 & \If i=0\\
+\max_{0\leq j\leq i-1\text{ and }\var{nums}[i]\ |\ \var{nums}[j]}\{f(j)+1\} & \text{o.w}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then we can use backtrace to recursively build up the answer.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 375.
+ Guess Number Higher or Lower II
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the minimum number of amount one need a guarantee a win for number
+ to be picked in range 
+\begin_inset Formula $[i,j].$
+\end_inset
+
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+0 & \If i=j\ \text{or }j>i\\
+k+\min_{i\leq k\leq j}\{f(i,k-1)+f(k+1,j)\} & \text{else if }i<j
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $f(1,n)$
+\end_inset
+
+.
+ The overall run time complexity is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 392.
+ Is Subsequence
+\end_layout
+
+\begin_layout Paragraph
+Greedy with two pointer
+\end_layout
+
+\begin_layout Standard
+Just match 
+\begin_inset Formula $\var s$
+\end_inset
+
+ with 
+\begin_inset Formula $\var t$
+\end_inset
+
+ from the beginning.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 376.
+ Wiggle Subsequence
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the length of the longest wiggle subsequence ending with 
+\begin_inset Formula $\var{nums}[i]$
+\end_inset
+
+ and the difference between last two elements is positive and 
+\begin_inset Formula $g(i)$
+\end_inset
+
+ denote the length of the longest wiggle subsequence ending with 
+\begin_inset Formula $\var{nums}[i]]$
+\end_inset
+
+ and the difference between the last two elements is negative.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+1 & \text{if }i=0\\
+\max_{0\leq j<i,\var{nums}[i]<\var{nums}[j]}\{1+g(j)\} & \text{o.w.}
+\end{cases},
+\end{equation}
+
+\end_inset
+
+and 
+\begin_inset Formula 
+\begin{equation}
+g(i)=\begin{cases}
+1 & \text{if }i=0\\
+\max_{0\leq j<i,\var{nums}[i]>\var{nums}[j]}\{1+f(j)\} & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is 
+\begin_inset Formula $\max_{0\leq i\leq n-1}\{\max(f(i),g(i))\}.$
+\end_inset
+
+ And the overall running time complexity is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 403.
+ Frog Jump
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(x,y)$
+\end_inset
+
+ denote the reachability to 
+\begin_inset Formula $x$
+\end_inset
+
+ with step 
+\begin_inset Formula $y$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(x,y)=\begin{cases}
+\var{true} & \text{if }x=1,y=1\\
+f(x-y,y)\lor f(x-y,y-1)\lor f(x-y,y+1) & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Since there is not limit on steps, we have that 
+\begin_inset Formula $\bigvee_{i=1}^{1001}f(\var{stones}[-1],i).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 410.
+ Split Array Largest Sum
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the largest sum splitting array 
+\begin_inset Formula $\var{nums}[0:i]$
+\end_inset
+
+ into 
+\begin_inset Formula $j$
+\end_inset
+
+ parts.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\fn{RMQ}(0,i) & \If j=1\\
+\min_{j-1\leq k\leq i}\{\fn{RMQ}(k,i)+f(k-1,j-1)\} & \text{o.w}.
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $f(n-1,m).$
+\end_inset
+
+ The overall runtime complexity if 
+\begin_inset Formula $O(n^{2}m)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Paragraph
+Binary Search
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(x)$
+\end_inset
+
+ denote the minimum number of contiguous subarrays that can be splitted
+ with sum less than or equal to 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ Then we note that 
+\begin_inset Formula $f$
+\end_inset
+
+ is a decreasing function.
+ The desired answer is then 
+\begin_inset Formula $\sup\{x:f(x)\leq m\}.$
+\end_inset
+
+ This can be queried using binary search on 
+\begin_inset Formula $f$
+\end_inset
+
+ on range 
+\begin_inset Formula $[\max_{i}\{\var{nums}[i]\},\sum_{i}\var{nums}[i]]$
+\end_inset
+
+.
+ The runtime complexity is 
+\begin_inset Formula $O(n\log n)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 413.
+ Arithmetic Slices
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the number arithmetic slices ending with 
+\begin_inset Formula $\var A[i].$
+\end_inset
+
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+0 & \If i<2\\
+1+f(i-1) & \text{else if }A[i]-A[i-1]=A[i-1]-A[i-2]\\
+0 & \text{else if }A[i]-A[i-1]\neq A[i-1]-A[i-2]
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $\sum_{i=0}^{n-1}f(i)$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\fn{std::size}(\var A).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 418.
+ Sentence Screen Fitting
+\end_layout
+
+\begin_layout Paragraph
+Memoization
+\end_layout
+
+\begin_layout Standard
+We design a function 
+\begin_inset Formula $\fn{fill}(i)$
+\end_inset
+
+ which fills a row starting from 
+\begin_inset Formula $\var{sentence}[i]$
+\end_inset
+
+ and stop until this row cannot be filled.
+ It returns the number of words filled and the word next to the last filled
+ word.
+ Note that the sentences can be filled multiple times in one row if the
+ column size is sufficiently large.
+ Then we fill the matrix row by row and accumulate the total number of words
+ filled, which we denote as 
+\begin_inset Formula $\var{acc\_cnt}$
+\end_inset
+
+.
+ The final result is then 
+\begin_inset Formula $\var{acc\_cnt}/n$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\size(\var{sentence})$
+\end_inset
+
+.
+ To speed things up, we note that 
+\begin_inset Formula $\fn{fill}$
+\end_inset
+
+ is a pure function which does not depend on other states.
+ Therefore, we can memoize it to save unnecessary computation.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 446.
+ Arithmetic Slices II
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,d)$
+\end_inset
+
+ denote the number of arithmetic slices ending with 
+\begin_inset Formula $\var A[i]$
+\end_inset
+
+ with difference 
+\begin_inset Formula $d.$
+\end_inset
+
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,d)=\begin{cases}
+\sum_{0\leq j<i,\var A[i]-\var A[j]=d}f(j,d)+1 & \text{if }i>1\\
+1 & \text{else if }i=1\text{ and }\var A[i]-d=\var A[i-1]\\
+0 & \text{else if }i=1\text{ and }\var A[i]-d\neq\var A[i-1]
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+We need to note that these sequences contains arithmetic sequences with
+ length 
+\begin_inset Formula $2$
+\end_inset
+
+, which doesn't satisfy the requirement given in the problem.
+ Hence we need to subtract them off.
+ There are two ways to subtract them:
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $x$
+\end_inset
+
+ denote the accumulated sum for all 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $d$
+\end_inset
+
+.
+ Then the final answer is 
+\begin_inset Formula $x-n(n-1)/2,$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\size(\var A).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Let 
+\begin_inset Formula $x$
+\end_inset
+
+ denote the final answer.
+ Then 
+\begin_inset Formula $x=\sum_{i=0}^{n-1}\sum_{j=0}^{n-1}f(j,A[i]-A[j]).$
+\end_inset
+
+ By doing so, we are excluding out the two element sequence since we are
+ starting from 
+\begin_inset Formula $j$
+\end_inset
+
+ instead of 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ By doing so we are guaranteeing the first element any arithmetic slices
+ therefore guaranteeing 
+\begin_inset Formula $x$
+\end_inset
+
+ counts all the arithmetic slices with at least three elements.
+\end_layout
+
+\begin_layout Standard
+We also note that there some int max and int min issues to be dealt with
+ separately.
+ Also, to speed things up, we use a 
+\begin_inset Formula $\var{value\_index\_map}$
+\end_inset
+
+ to keep track of all the indices.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 464.
+ Can I Win
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpmask}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming with BitSet
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(S,x)$
+\end_inset
+
+ denote the possibility to guarantee a win for the first player with remaining
+ available number set 
+\begin_inset Formula $S$
+\end_inset
+
+ and target 
+\begin_inset Formula $x$
+\end_inset
+
+.
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(S,x)=\begin{cases}
+\var{false} & \text{if }S=\emptyset\ \text{or }\sum_{x\in S}S<x\\
+(\max(S)\geq x)\fn{\ or\ }\bigvee_{x\in S}(\fn{not}f(S\backslash\{x\}-x-i)) & \text{else}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $f([1,...n],\var{desiredTotal}).$
+\end_inset
+
+ We note that we don't need to memoize both 
+\begin_inset Formula $S$
+\end_inset
+
+ and 
+\begin_inset Formula $x$
+\end_inset
+
+ since once we know 
+\begin_inset Formula $S$
+\end_inset
+
+, 
+\begin_inset Formula $x$
+\end_inset
+
+ can be automatically calculated.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 466.
+ Count The Repetitions
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming with Doubling
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,k)$
+\end_inset
+
+ denote the number of characters of of the infinite stream of 
+\begin_inset Formula $s_{i}$
+\end_inset
+
+'s starting from 
+\begin_inset Formula $s_{1}[i]$
+\end_inset
+
+ needed to cover 
+\begin_inset Formula $2^{k}$
+\end_inset
+
+ copies of 
+\begin_inset Formula $s_{2}$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,k)=\begin{cases}
+\fn{single\_match\_count}(i) & \text{if }k=0\\
+f(i,k-1)+f((i+f(i,j-1))\mod\ell_{1}
+\end{cases}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 624.
+ Maximum Distance in Arrays
+\end_layout
+
+\begin_layout Paragraph
+Prefix Max/Min
+\end_layout
+
+\begin_layout Standard
+First, we note that if we drop the requirement that the two elements has
+ to be from distinct arrays then the maximum distance has to be the 
+\begin_inset Formula $\max({\tt {flatten}(\var{arrays}))-\min({\tt {flatten}(\var{arrays})).}}$
+\end_inset
+
+ On the other hand, if we require the two elements to be from distinct arrays,
+ then we have to exclude the some cases.
+ One thing that is invariant is that the at least one of 
+\begin_inset Formula $\max({\tt {flatten}(\var{arrays}))}$
+\end_inset
+
+ and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\min({\tt {flatten}(\var{arrays}))}$
+\end_inset
+
+ will be involved in the resulting optimal distance, which one could prove
+ using an exchange argument.
+ So let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum distance produced with one participating element in
+ 
+\begin_inset Formula $\var{array}[i]$
+\end_inset
+
+, then 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\max(P_{\min}(i),P_{\max}(i),S_{\min}(i),S_{\max}(i)) & \text{if }0<i<n-1\\
+\max(S_{\min}(i),S_{\max}(i)) & \text{else if }i=0\\
+\max(P_{\min}(i),P_{\max}(i)) & \text{else if }i=n-1
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where as
+\begin_inset Formula 
+\begin{align}
+P_{\min}(i) & =\left|\max(\var{array}[i])-\min({\tt {flatten}(\var{array}[0:i-1]))}\right|,\\
+P_{\max}(i) & =\left|\min(\var{array}[i])-\max({\tt {flatten}(\var{array}[0:i-1]))}\right|,\\
+S_{\max}(i) & =\left|\max(\var{array}[i])-\min({\tt {flatten}(\var{array}[i+1:n-1]))}\right|,\\
+S_{\min}(i) & =\left|\min(\var{array}[i])-\max({\tt {flatten}(\var{array}[i+1:n-1]))}\right|,
+\end{align}
+
+\end_inset
+
+which can be computed efficiently 
+\begin_inset Formula $O(n)$
+\end_inset
+
+ where 
+\begin_inset Formula $n={\tt {std::size}(\var{arrays})}$
+\end_inset
+
+ using prefix min and max arrays and the sorted structure of 
+\begin_inset Formula $\var{arrays}.$
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18144}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 723.
+ Candy Crush
+\end_layout
+
+\begin_layout Paragraph
+Simulation with Two Pointers 
+\begin_inset CommandInset label
+LatexCommand label
+name "par:723-simulation-1"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+Use two pointer method to mark consecutive entries in each row and each
+ column.
+ To do so, one can either maintain a separate matrix of boolean flags indicating
+ whether the corresponding entry in 
+\begin_inset Formula $\var{board}$
+\end_inset
+
+ is to be deleted or negate the value in 
+\begin_inset Formula $\var{board}$
+\end_inset
+
+ directly as a flag.
+ In our implementation, we choose the latter approach and the corresponding
+ procedures are encapsulated in 
+\begin_inset Formula ${\tt {mark\_row()}}$
+\end_inset
+
+ and 
+\begin_inset Formula ${\tt {mark\_col()}}$
+\end_inset
+
+.
+ The crush procedure is implemented in 
+\begin_inset Formula ${\tt {crush()},}$
+\end_inset
+
+ which is routine.
+ We will also implement a function 
+\begin_inset Formula ${\tt {drop()}}$
+\end_inset
+
+ to simulate the gravity phenomena, which also uses a two pointer approach.
+ Alternatively, one could also explicitly use a double ended queue to filter
+ out the crushed candies column by column and reinsert the filtered result
+ back into 
+\begin_inset Formula $\var{board}$
+\end_inset
+
+ starting from the bottom of each column.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18139}
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Addsec
+LeetCode 746.
+ Min Cost Climbing Stairs
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the minimum cost to climb to level 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then we have n
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\min(f(i-1)+\var{cost}[i-1],f(i-2)+\var{cost}[i-2] & \text{if }i>1\\
+0 & \text{else if }i\in\{0,1\}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the desired answer is then 
+\begin_inset Formula $f(n),$
+\end_inset
+
+ where 
+\begin_inset Formula $n={\tt {std::size}(\var{cost}).}$
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18145}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 983.
+ Minimum Cost For Tickets
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the minimum costs to cover 
+\begin_inset Formula $\var{days}[0:i]$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\max(\var{costs}[0],\var{costs}[1],\var{costs}[2]) & \If i=0\\
+\max(\var{costs}[i]+f(\fn{next\_lower}(\var{days}[0:i-1],\var{days}[i]-\var{pass}[i])) & \text{else if }i\neq\emptyset,i>0\\
+0 & \text{else if }i=\emptyset
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\fn{next\_lower}(A,x)$
+\end_inset
+
+ return last element in array 
+\begin_inset Formula $A$
+\end_inset
+
+ that is strictly less than 
+\begin_inset Formula $x$
+\end_inset
+
+; we note that this procedure can be implemented in 
+\begin_inset Formula $O(\log n)$
+\end_inset
+
+ times using binary search.
+ Thus, the overall time complexity is 
+\begin_inset Formula $O(n\log n)$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\fn{std::size}(\var{days}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1346.
+ Check if N and Its Double Exist
+\end_layout
+
+\begin_layout Paragraph
+HashSet
+\end_layout
+
+\begin_layout Standard
+Create a hashset 
+\begin_inset Formula $\var{arr\_set}$
+\end_inset
+
+ to store non-zero unique elements in 
+\begin_inset Formula $\var{arr}$
+\end_inset
+
+.
+ Then we count the number of zeros in 
+\begin_inset Formula $\var{arr},$
+\end_inset
+
+ if there are at least two zeros, we return 
+\begin_inset Formula $\var{true}$
+\end_inset
+
+ immediately; otherwise we loop through 
+\begin_inset Formula $\var{arr\_set}$
+\end_inset
+
+ check if the condition is met.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18146}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1351.
+ Count Negative Numbers in a Sorted Matrix
+\end_layout
+
+\begin_layout Paragraph
+Binary Search
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $[R,C]={\tt {dimension}(\var{grid})}$
+\end_inset
+
+.
+ We count row by row.
+ If 
+\begin_inset Formula $\var{grid}[r][0]<0$
+\end_inset
+
+ for some 
+\begin_inset Formula $r\in[0,R-1]$
+\end_inset
+
+, then we add all the items in the submatrix 
+\begin_inset Formula $\var{grid}[r:R-1][0:C-1]$
+\end_inset
+
+ to the final result; otherwise, we will use binary search to find the first
+ negative entry 
+\begin_inset Formula $c_{N}$
+\end_inset
+
+ in each row and add to the final result 
+\begin_inset Formula $C-c_{N}.$
+\end_inset
+
+ The count process could be implemented as a function 
+\begin_inset Formula $f(r)$
+\end_inset
+
+, where 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ means the number of negative entries when counting from row 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then a
+\begin_inset Formula 
+\begin{equation}
+f(r)=\begin{cases}
+C-c_{N}+f(r+1) & \text{if }\min(\var{grid}[r])<0\\
+0 & \text{else if }\min(\var{grid}[r])>0\text{ or }r=R\\
+(R-r)\cdot C & \text{else if }\text{\var{grid}}[r][0]<0
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+And the desired answer is 
+\begin_inset Formula $f(0).$
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18156}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1365.
+ How Many Numbers Are Smaller Than the Current Number
+\end_layout
+
+\begin_layout Paragraph
+Bucket Sort with Prefix Sum
+\end_layout
+
+\begin_layout Standard
+Create a bucket array, 
+\begin_inset Formula $\var{bucket}$
+\end_inset
+
+, to store all the values in 
+\begin_inset Formula $\var{nums}$
+\end_inset
+
+ and then create range query module of 
+\begin_inset Formula $\var{bucket}$
+\end_inset
+
+ using prefix sum, which we name as 
+\begin_inset Formula ${\tt {RSQ}.}$
+\end_inset
+
+ Let 
+\begin_inset Formula $A$
+\end_inset
+
+ denote the desired array, then we have 
+\begin_inset Formula 
+\begin{equation}
+A[i]=\begin{cases}
+0 & \text{if }\var{nums}[i]=0\\
+{\tt {RSQ}(0,\var{nums}[i]-1)} & \text{otherwise}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The overall runtime complexity is 
+\begin_inset Formula $O(n)$
+\end_inset
+
+ and memory complexity is 
+\begin_inset Formula $O(n).$
+\end_inset
+
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18157}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1380.
+ Lucky Numbers in a Matrix
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+Create two arrays, 
+\begin_inset Formula $\var{row\_min}$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{col\_max}$
+\end_inset
+
+, to store the minimum (maximum) of each row (column).
+ Then we iterate through every entries 
+\begin_inset Formula $\var{matrix}$
+\end_inset
+
+ to check for lucky numbers.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18163}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1385.
+ Find the Distance Value Between Two Arrays
+\end_layout
+
+\begin_layout Paragraph
+Binary Search
+\end_layout
+
+\begin_layout Standard
+We first let 
+\begin_inset Formula $\var{sorted\_arr2}$
+\end_inset
+
+ be a sorted copy of 
+\begin_inset Formula $\var{arr2}.$
+\end_inset
+
+ Then for each 
+\begin_inset Formula $i\in[0,n_{1}-1]$
+\end_inset
+
+, where 
+\begin_inset Formula $n_{2}={\tt {std::size}(\var{arr1}),}$
+\end_inset
+
+ we use binary search to locate 
+\begin_inset Formula $l,r$
+\end_inset
+
+ such that 
+\begin_inset Formula $\var{sorted\_arr2}[l:r]\subseteq[\var{arr1}[i]-d,\var{arr1}[i]+d]$
+\end_inset
+
+ and add the element count of 
+\begin_inset Formula $\var{sorted\_arr2}[l:r]$
+\end_inset
+
+ to the final result.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18169}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1389.
+ Create Target Array in the Given Order
+\end_layout
+
+\begin_layout Paragraph
+Simulation
+\end_layout
+
+\begin_layout Standard
+Just simply create a 
+\begin_inset Formula ${\tt {std::vector<int>}}$
+\end_inset
+
+ and simulate the process using 
+\begin_inset Formula ${\tt {insert}}$
+\end_inset
+
+.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18170}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1394.
+ Find Lucky Integer in an Array
+\end_layout
+
+\begin_layout Paragraph
+Implementation
+\end_layout
+
+\begin_layout Standard
+Create a hashmap 
+\begin_inset Formula $\var{freq\_map}$
+\end_inset
+
+ to count the occurrences of each number in 
+\begin_inset Formula $\var{arr}$
+\end_inset
+
+.
+ Then filter out the keys in 
+\begin_inset Formula $\var{freq\_map}$
+\end_inset
+
+ that satisfies the condition into a list, and return the maximum the list
+ if the list is non-empty or -1 if otherwise.
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+acwinglink{18213}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

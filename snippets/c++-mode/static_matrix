@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: static_matrix
+# key: static_matrix
+# --
+
+template <typename T, size_t R, size_t C>
+using matrix = std::array<std::array<T, C>, R>;

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: static_tensor
+# key: static_tensor
+# --
+
+template <typename T, int I, int J, int K> 
+using tensor = std::array<std::array<std::array<T, I>, J>, K>;
+
+

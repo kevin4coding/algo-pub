@@ -1,0 +1,22 @@
+# -*- mode: snippet -*-
+# name: math::vector_operations
+# key: math::vector_operations
+# --
+
+namespace math::vector_operations {
+template <typename T>
+std::vector<T> operator + (const std::vector<T>& x, const std::vector<T>& y) {
+  auto res = x;
+  for (int i = 0; i < size(y); ++i)
+    res[i] += y[i];
+  return res;
+};
+
+template <typename T>
+std::vector<T> operator / (const std::vector<T>& x, T y) {
+  auto res = x;
+  for (int i = 0; i < size(x); ++i)
+    res[i] /= y;
+  return res;
+};
+} // end namespace math::vector_operations

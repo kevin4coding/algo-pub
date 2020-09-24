@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: io::basic_tokenizer
+# key: io::basic_tokenizer
+# --
+
+class basic_tokenizer {
+ private:
+  mutable std::stringstream stream;
+ public:
+  basic_tokenizer(const string& str) :  stream(str){};
+ public:
+  bool has_next() { return stream.peek() != std::char_traits<char>::eof();}
+  char peek() { return stream.peek(); }
+  void consume() { next<char>(); };
+
+ public:
+  template <class T, typename std::enable_if_t<std::is_arithmetic_v<T>
+                                               or std::is_same_v<string, T>>* = nullptr>
+  T next() {
+    auto data = T{};
+    stream >> data;
+    return data;
+  }
+};

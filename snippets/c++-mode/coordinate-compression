@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-	
+# name : cdmap
+# key : cdmap
+# --
+
+template <typename TCoord>
+struct coordinate_map {
+  std::unordered_map<TCoord, int> f;
+  std::vector<TCoord> f_inv;
+
+  coordinate_map(const std::vector<TCoord>& data) {
+    std::copy(std::begin(data), std::end(data), std::back_inserter(f_inv));
+    std::sort(std::begin(f_inv), std::end(f_inv));
+    f_inv.erase(std::unique(std::begin(f_inv), std::end(f_inv)), std::end(f_inv));
+    std::transform(std::begin(f_inv), std::end(f_inv), std::inserter(f, std::begin(f)), [&, rank = 0](auto &&x) mutable {
+      return std::pair{x, rank++};
+    });
+  }
+
+  int operator()(TCoord c) const { return f.at(c); }
+
+  TCoord operator[](int rank) const { return f_inv[rank]; }
+
+  std::size_t size() const {
+    return std::size(f_inv);
+  }
+};

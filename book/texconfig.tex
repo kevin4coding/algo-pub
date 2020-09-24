@@ -1,0 +1,178 @@
+%% %%%%%%%% ICML 2019 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+ 
+\usepackage[T1]{fontenc}
+% \usepackage[latin9]{inputenc}
+\synctex=-1
+\usepackage{verbatim}
+\usepackage{float}
+%% \usepackage{amsmath}
+%% \usepackage{amsthm}
+%% \usepackage{amssymb}
+\usepackage{stackrel}
+\usepackage{setspace}
+\usepackage{wasysym}
+\usepackage{booktabs}
+
+\makeatletter
+
+
+\usepackage{tocloft}
+
+\addtolength{\cftsecnumwidth}{10pt}
+
+
+\makeatletter
+\newcommand*{\currentname}{\@currentlabelname}
+\makeatother
+
+\newlistof{dpmask}{dpmask}{Dynamic Programming with BitMasks}
+\newlistof{dpdouble}{dpdouble}{Dynamic Programming with Doubling}
+
+\newcommand{\addlist}[1]{\addcontentsline{#1}{#1}{\currentname}}
+
+%% \AtEndDocument{
+%% \input{codelistings.tex}
+%% \clearpage{}
+%% \bibliographystyle{natdin-en}
+%% \bibliography{ref}
+%% }
+
+\usepackage{graphicx}
+\usepackage{geometry}
+
+
+\addtokomafont{disposition}{\rmfamily}
+\addtokomafont{section}{\fontsize{10}{12}\selectfont}
+
+
+
+\newcommand{\codecolor}{\blue}
+
+\geometry{
+ b4paper,
+ left=15mm,
+ right=15mm,
+ top=10mm,
+ bottom=10mm
+ }
+
+
+
+
+\KOMAoptions{%
+    %draft,
+    %% DIV=calc, % this will calculate correct margins
+    fontsize=10pt
+}
+
+\linespread{1.05}
+
+\usepackage[toc,page]{appendix}
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{algorithm}{
+        \SetKwInput{Input}{Input}
+        \SetKwInput{Output}{Output}
+        \SetKwInput{Initialize}{Initialize}}
+        
+\pretocmd{\addsec}{\stepcounter{section}}{}{}
+
+
+\usepackage{color}   %May be necessary if you want t color links
+\usepackage{hyperref}     
+\hypersetup{colorlinks, citecolor=blue, linkcolor=red, urlcolor=blue}
+
+\DeclareMathOperator*{\argmin}{argmin}
+\DeclareMathOperator*{\argmax}{argmax}  
+
+
+
+
+\usepackage{etoolbox}
+\AtBeginEnvironment{algorithm}{
+        \SetKwInput{Input}{Input}
+        \SetKwInput{Output}{Output}
+        \SetKwInput{Initialize}{Initialize}}
+
+\usepackage[nameinlink]{cleveref}
+
+
+
+\usepackage{xcolor}
+\usepackage{nameref}
+
+\crefalias{thm}{theorem}
+
+
+
+%% \let\oldrem\rem
+%% \renewcommand{\rem}{%
+%% \crefalias{thm}{remark}
+%% \oldrem
+%% }
+
+%% \let\olddefn\defn
+%% \renewcommand{\defn}{%
+%% \crefalias{thm}{definition}
+%% \olddefn
+%% }
+
+\creflabelformat{equation}{#2{\color{black}(}#1{\color{black})}#3}
+
+
+\crefname{lem}{Lemma}{Lemma}
+\crefname{equation}{}{}
+\Crefname{equation}{}{}
+\crefname{section}{section}{section}
+\crefname{addsec}{a}{a}
+
+
+\AtBeginDocument{%
+\let\ref\Cref
+}
+
+
+\newcommand{\todoREF}{{\color{orange} (TODO: add reference)}}
+\newcommand{\paracount}[1]{#1}
+
+\usepackage{minted}
+
+\usepackage[many]{tcolorbox}
+\tcbuselibrary{listings}
+\tcbuselibrary{minted}
+
+
+
+\newcounter{filePrg}
+
+\newcommand{\codebase}{/home/jasonsun0310/Dropbox/localprojects/interview-prep/leetcode/code/}
+
+
+\newtcbinputlisting[use counter=filePrg, number within=section, list inside=mypyg]{\codeFromFile}[3]{%
+  listing engine=minted,
+  minted language=c++,
+  listing file=#1
+  minted options={autogobble,linenos,breaklines},
+  listing only,
+  size=title,
+  breakable,
+  title=Listing \thetcbcounter: test,
+  list entry=Listing~\thetcbcounter: test,     
+  label=lst:test
+}
+
+\newcommand{\cppcode}[3]{
+  \codeFromFile{c++}{/home/jasonsun0310/Dropbox/localprojects/interview-prep/leetcode/code/55.jump-game.cpp}{#3}
+  %% \begin{listing}[h]
+  %%   \inputminted[fontsize=\footnotesize]{c++}{\codebase#1.#2.cpp}
+  %%   \caption{\nameref{sec:#1} (\nameref{par:#1-#3})}
+  %%   \label{listing: #1-#3}
+  %% \end{listing}
+  %% \clearpage{}
+}
+%% \usepackage[dvipsnames]{xcolor
+
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+\newcommand{\acwinglink}[1]{\hspace*{0pt}{\hfill} \href{https://www.acwing.com/solution/content/#1/}{\color{mypink1}{$\boxed{\mathrm{Code}}$}}}
+
+

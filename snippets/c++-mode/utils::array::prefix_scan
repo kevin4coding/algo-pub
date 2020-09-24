@@ -1,0 +1,18 @@
+# -*- mode: snippet -*-
+# name: utils::array::prefix_scan
+# key: utils::array::prefix_scan
+# --
+
+template <typename Monoid, typename T,
+          typename std::enable_if_t<std::is_same_v<T, typename Monoid::value_type>>* = nullptr>
+vector<T> prefix_scan(const vector<T>& x) {
+  static constexpr Monoid monoid {};
+  vector<T> result(size(x), T{});
+  for (int i = 0; i < size(x); ++i) {
+    if (i == 0)
+      result[i] = x[i];
+    else
+      result[i] = monoid.mult(result[i - 1], x[i]);
+  }
+  return result;
+}

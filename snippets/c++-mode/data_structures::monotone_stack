@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: data_structures::monotone_stack
+# key: data_structures::monotone_stack
+# --
+
+template <typename T, typename Compare, typename Container = std::vector<T>>
+struct monotone_stack {
+  Container data;
+  Compare comp;
+
+  monotone_stack() : data(), comp() {};
+
+  T top() { return data.back(); }
+  
+  optional<vector<T>> push(const T&x) {
+    optional<vector<T>> popped = std::nullopt;
+    while (not data.empty() and comp(data.back(), x)) {
+      if (not popped) popped = vector<T>();
+      (*popped).emplace_back(data.back());
+      data.pop_back();
+    }
+    data.push_back(x);
+    return popped;
+  }
+
+  bool empty() { return data.size() == 0; };
+};

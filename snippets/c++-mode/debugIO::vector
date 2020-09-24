@@ -1,0 +1,26 @@
+# -*- mode: snippet -*-
+# name: debugIO::vector
+# key: debugIO::vector
+# --
+
+template <typename T>
+std::ostream& operator << (std::ostream& os, const vector<T>& x) {
+  os << "[";
+  for (auto it = begin(x); it != end(x); ++it) {
+    os << (it == begin(x) ? "" : ", ") << *it;
+  }
+  os << "]";
+  return os;
+}
+
+
+template <typename T>
+std::ostream& operator << (std::ostream& os, const vector<vector<T>>& x) {
+  os << "\n[";
+  for (auto it = begin(x); it != end(x); ++it) {
+    os << (it == begin(x) ? "" : "\n ") << *it;
+  }
+  os << "]";
+  return os;
+}
+

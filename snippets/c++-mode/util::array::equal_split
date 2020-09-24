@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: utils::array::equal_split
+# key: utils::array::equal_split
+# --
+
+template <typename T, std::size_t N>
+array<T, N> equal_split(const T& x, array<T, N> &&result = {}) {
+  for (int i = 0; i < N; ++i)
+    std::copy(begin(x) + i * size(x) / 3, begin(x) + (i + 1) * size(x) / 3, std::back_inserter(result[i]));
+  return result;
+};

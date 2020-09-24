@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: utils::dynamic_bitset
+# key: utils::dynamic_bitset
+# --
+
+namespace utils::dynamic_bitset {
+template <typename bitset_t = int, typename... Ts, typename std::enable_if_t<std::conjunction_v<std::is_same<int, Ts>...>>* = nullptr>
+int flip(bitset_t mask, Ts...arg) { return ((mask ^= (1 << arg)), ...); }
+
+template <typename bitset_t = int, typename... Ts, typename std::enable_if_t<std::conjunction_v<std::is_same<int, Ts>...>>* = nullptr>
+bool test(bitset_t mask, Ts... arg) { return ((mask & (1 << arg)) && ...); }
+
+template <typename bitset_t = int>
+int count_upto (bitset_t mask, int n) { int acc = 0; for (int i = 0; i < n; i++) if ((mask & (1 << i)) > 0) acc++; return acc; };
+
+template <typename bitset_t = int>
+int popcount(bitset_t x) {
+  if constexpr (std::is_same_v<bitset_t, int>) 
+    return __builtin_popcount(x);
+  else if (std::is_same_v<bitset_t, long>)
+    return __builtin_popcountl(x);
+  else if (std::is_same_v<bitset_t, long long>)
+    return __builtin_popcountll(x);
+}
+} // end namespace utils::dynamic_bitset

@@ -1,0 +1,45 @@
+# -*- mode: snippet -*-
+# name: data_structures::bounded_priority_queue
+# key: data_structures::bounded_priority_queue
+# --
+
+template <class value_type, typename Group = std::tuple<>, class Compare = std::less<value_type>>
+class bounded_priority_queue {
+ private:
+  template <typename> struct is_tuple: std::false_type {};
+  template <typename ...T> struct is_tuple<std::tuple<T...>>: std::true_type {};
+  
+ private:
+  static constexpr auto group_ = Group{};
+  static constexpr auto has_group_structure_ = not is_tuple<Group>::value;
+  std::priority_queue<value_type, std::vector<value_type>, Compare> pq_;
+  std::size_t capacity_;
+  value_type acc_pq_;
+
+ public:
+  bounded_priority_queue(std::size_t n) : pq_{}, acc_pq_{}, capacity_{n} {}
+  bounded_priority_queue(std::size_t n, Compare comp) : pq_(comp), acc_pq_{}, capacity_{n} {}
+
+  std::size_t size() const { return pq_.size(); }
+  std::size_t capacity() const { return capacity_; }
+  /* @ O(\log N) */
+  void push(value_type item) {
+    pq_.push(item);
+    if constexpr (has_group_structure_) acc_pq_ = group_.mult(acc_pq_, item);
+    if (std::size(pq_) == capacity_ + 1) {
+      if constexpr (has_group_structure_) acc_pq_ = group_.mult(acc_pq_, group_.inv(pq_.top()));
+      pq_.pop();
+    }
+  }
+  /* @ O(1) */
+  void pop() { pq_.pop(); };
+  /* @ O(1) */
+  value_type top() const { return pq_.top(); }
+  /* @ O(1) */
+  value_type reduce() const {
+    if constexpr (has_group_structure_)
+      return acc_pq_;
+    else
+      throw std::domain_error("does not have group structure");
+  }
+};

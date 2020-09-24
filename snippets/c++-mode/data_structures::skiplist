@@ -1,0 +1,100 @@
+# -*- mode: snippet -*-
+# name: data_structures::skiplist
+# key: data_structures::skiplist
+# --
+
+template <typename T, std::size_t N = 50000> 
+struct memory_pool {
+  std::array<T, N> pool = {};
+  std::size_t ptr;
+  memory_pool() : pool{}, ptr(0) {}
+  T *offer() { return &pool[ptr++]; }
+};
+
+struct node_t {
+  node_t *right, *down; 
+  int val;
+  node_t() = default;
+  node_t(node_t* right, node_t* down, int val) : right(right), down(down), val(val) {}
+};
+
+class Skiplist {
+ private:
+  node_t* head;
+  memory_pool<node_t> pool;
+
+ private:
+  bool coin_flip() const { return (rand() & 1) == 0; }
+  
+  node_t* make_node(node_t* right, node_t* down, int val) {
+    auto res = pool.offer();
+    res->right = right;
+    res->down = down;
+    res->val = val;
+    return res;
+  }
+
+ public:
+  Skiplist() : pool() { head = make_node(nullptr, nullptr, -1); }
+  ~Skiplist() {}
+
+  bool search(int target) {
+    std::function<bool(node_t*)> go = [&, this](node_t * node) {
+      if (node == nullptr)
+        return false;
+      else if (node->val == target)
+        return true;
+      else if (node->right != nullptr and node->right->val <= target)
+        return go(node->right);
+      else if (node->right == nullptr or target < node->right->val)
+        return go(node->down);
+      throw std::domain_error("unexpected case");
+    };
+    return go(head);
+  }
+
+  std::vector<node_t*> path(int num) {
+    auto res = std::vector<node_t*>{};
+    std::function<void(node_t*)> go = [&](node_t * node) {
+      if (node == nullptr)
+        return;
+      else if (not node->right or node->right->val >= num) 
+        res.push_back(node), go(node->down);
+      else if (node->right and node->right->val < num)
+        go(node->right);
+    };
+    return go(head), res;
+  };
+
+  void add(int num) {
+    auto insertion_list = path(num);
+    std::function<void(bool, node_t*)> go = [&](bool insert_up, node_t* down_node) {
+      if (not insert_up)
+        return;
+      else if(not std::empty(insertion_list)) {
+        node_t * insert = insertion_list.back();
+        insert->right = make_node(insert->right, down_node, num);
+        go(coin_flip(), (insertion_list.pop_back(), insert->right));
+      }
+      else if (std::empty(insertion_list)) 
+        head = make_node(make_node(nullptr, down_node, num), head, -1);
+    };
+    go(true, NULL); 
+  }
+
+  bool erase(int num) {
+    std::function<bool(node_t*, bool)> go = [&](node_t* node, bool acc) {
+      if (node == nullptr)
+        return acc;
+      else if (node->right and node->right->val == num) 
+        return node->right = node->right->right, go(node->down, true);
+      else if (node->right and node->right->val <= num)
+        return go(node->right, false);
+      else if (not node->right or node->right->val > num)
+        return go(node->down, false);
+      throw std::domain_error("");
+    };
+    return go(head, false);
+  }
+};
+

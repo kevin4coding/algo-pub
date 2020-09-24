@@ -1,0 +1,43 @@
+# -*- mode: snippet -*-
+# name: data_structures::monotone_stack_with_view
+# key: data_structures::monotone_stack_with_view	
+# --
+
+template <class T, class ViewCreator, class Comp = std::greater<>>
+class monotone_stack {
+ private:
+  typedef T value_type;
+  typedef typename ViewCreator::value_type view_value_type;
+
+ private:
+  std::deque<T> data_;
+  std::vector<view_value_type> view_;
+  ViewCreator view_creator_;
+  Comp comp_;
+  
+ public:
+  monotone_stack() : data_{}, view_{}, comp_{}, view_creator_{std::cref(data_)} {}
+
+  template <typename InputIterator>
+  monotone_stack(InputIterator first, InputIterator last) : data_{}, view_{}, comp_{}, view_creator_{std::ref(data_)} {
+    for (auto it = first; it != last; ++it)
+      this->emplace_back(*it);
+  }
+
+  std::size_t size() const { return std::size(data_); }
+  std::vector<view_value_type>& view() const { return view_; }
+  view_value_type view(std::size_t i) const { return view_[i]; }
+  std::vector<value_type>& data() const { return data_; }
+  
+  void emplace_back(value_type elm) {
+    while (not empty(data_) and comp_(data_.back(), elm))
+      data_.pop_back();
+    data_.emplace_back(elm);
+    view_.emplace_back(view_creator_());
+  }
+
+  template <typename F>
+  view_value_type reduce(F&& f, view_value_type init = {}) const {
+    return std::accumulate(begin(view_), end(view_), init, std::forward<decltype(f)>(f));
+  }
+};

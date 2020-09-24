@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: algebraic_structures::addition_group
+# key: algebraic_structures::addition_group
+# --
+template <typename T> struct addition_group {
+  typedef T value_type;
+  value_type unit() const { return T{0}; }
+  value_type mult(value_type a, value_type b) const { return a + b; }
+  value_type inv(value_type a) const { return T{-1} * a; }
+};

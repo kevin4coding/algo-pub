@@ -1,0 +1,122 @@
+# -*- mode: snippet -*-
+# name: linear_algebra
+# key: linear_algebra
+# --
+
+namespace linear_algebra {
+
+static optional<int> mod = {};
+
+template <typename T>
+using matrix = std::vector<std::vector<T>>;
+
+template <typename T>
+matrix<T> zeros(int r, int c) {
+  return std::vector<std::vector<T>>(r, std::vector<T>(c, T(0)));
+}
+
+template <typename T>
+matrix<T> ones(int r, int c) {
+  return std::vector<std::vector<T>>(r, std::vector<T>(c, T(1)));
+}
+
+template <typename T>
+matrix<T> similar(const matrix<T>& A, const T& init_val = T(0)) {
+  return std::vector<std::vector<T>>(size(A), std::vector<T>(size(A[0]), init_val));
+}
+
+template <typename T>
+matrix<T> unit(std::size_t n) {
+  auto result = zeros<T>(n, n);
+  for(int i = 0; i < n; ++i) result[i][i] = T(1);
+  return result; 
+}
+
+template <typename T>
+void ensure_uniform_dimension(const matrix<T>& A) {
+  if (empty(A)) return;
+  int col_size = size(A[0]);
+  for (int i = 0; i < size(A); ++i) {
+    if (size(A[i]) != col_size)
+      throw std::domain_error("invalid matrix dimension");
+  }
+}
+
+template <typename T, typename ...Args>
+void ensure_uniform_dimension(const matrix<T> &A, Args... args) {
+  ensure_uniform_dimension(A);
+  ensure_uniform_dimension(args...);
+}
+
+template <typename T>
+void ensure_comformable(const matrix<T>& A, const matrix<T>& B) {
+  ensure_uniform_dimension(A, B);
+  if (empty(A) or empty(B))
+    throw std::domain_error("empty matrix");
+  else if (size(A[0]) != size(B))
+    throw std::domain_error("dimension mismatch");
+}
+
+template <typename T>
+matrix<T> operator * (const matrix<T>& A, const matrix<T> &B) {
+  ensure_comformable(A, B);
+  const int R = size(A), C = size(B[0]), M = size(A.at(0));
+  auto result = zeros<T>(R, C);
+  if (mod) {
+    for (int i = 0; i < R; ++i) {
+      for (int j = 0; j < C; ++j) {
+        for (int m = 0; m < M; ++m) {
+          (result[i][j] += ((A[i][m] * B[m][j]) % *mod), result[i][j] %= *mod);
+        }
+      }
+    }
+  }
+  else {
+    for (int i = 0; i < R; ++i) {
+      for (int j = 0; j < C; ++j) {
+        for (int m = 0; m < M; ++m) {
+          result[i][j] += A[i][m] * B[m][j];
+        }
+      }
+    }
+  }
+  return result;
+}
+
+template <typename T>
+matrix<T> pow(matrix<T> A, int p) {
+  int n = size(A);
+  if (p == 0)
+    return unit<T>(n);
+  auto result = unit<T>(n);
+  for (int i = 1; i <= p; i <<= 1) {
+    if (p & i) result = result * A;
+    A = A * A;
+  }
+  return result;
+}
+
+template <typename T>
+matrix<T> operator ^(matrix<T> A, int p) {
+  return pow(A, p);
+};
+
+
+template <typename T>
+T pnorm(const matrix<T>& A, int p = 1) {
+  if (empty(A)) return 0;
+  std::size_t R = size(A), C = size(A[0]);
+  if (p == 1) {
+    T acc = 0;
+    for (int r = 0; r < R; ++r) {
+      for (int c = 0; c < C; ++c) {
+        acc += (A[r][c] % *mod);
+        acc %= *mod;
+      }
+    }
+    return acc;
+  }
+  // unimplemented
+  return -1;
+}
+}
