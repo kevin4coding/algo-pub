@@ -211,7 +211,7 @@ Elementary Data Structures
 \end_layout
 
 \begin_layout Subsection
-Monotone Stack 
+Monotone Stack
 \end_layout
 
 \begin_layout Subsubsection
@@ -231,6 +231,42 @@ name "subsec:monotone-stack-kth-elemnt-subseq"
 
 \begin_layout Subsubsection
 Find [previous/next] [greater/smaller] element
+\end_layout
+
+\begin_layout Section
+String Algorithms
+\end_layout
+
+\begin_layout Subsection
+Prefix Function
+\end_layout
+
+\begin_layout Standard
+Given a string 
+\begin_inset Formula $s$
+\end_inset
+
+ of size 
+\begin_inset Formula $n$
+\end_inset
+
+, the prefix function 
+\begin_inset Formula $\pi(i):[0,...,n-1]$
+\end_inset
+
+ is defined as 
+\begin_inset Formula 
+\begin{equation}
+\pi[i]=\max_{k=0,...,i}\{k:s[0:k-1]=s[i-(k-1):i].
+\end{equation}
+
+\end_inset
+
+In words, it represents the length of the longest prefix substring in 
+\begin_inset Formula $s[0:i]$
+\end_inset
+
+ that is also a suffix.
 \end_layout
 
 \end_body

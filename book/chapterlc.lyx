@@ -1648,7 +1648,7 @@ The final answer is then
 
 \begin_layout Addsec
 LeetCode 466.
- Count The Repetitions
+ Count The Repetitions 
 \end_layout
 
 \begin_layout Standard
@@ -1710,6 +1710,80 @@ where
 
  is the base case, which could be implemented as a simple accumulation.
  Then we just need to fill using double technique.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 467.
+ Unique Substrings in Wraparound String
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{slidingwindow}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Sliding Window
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(c)$
+\end_inset
+
+ denote the length of the longest increasing contiguous subarray that ends
+ with 
+\begin_inset Formula $c$
+\end_inset
+
+ in 
+\begin_inset Formula $p$
+\end_inset
+
+.
+ Then the final answer is 
+\begin_inset Formula $\sum_{c\in[\var a,...,\var z]}f(c).$
+\end_inset
+
+ We also note the following:
+\end_layout
+
+\begin_layout Itemize
+The contiguous subarray condition check needs to include the check to 
+\begin_inset Formula $'za'$
+\end_inset
+
+ case.
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Formula $f(c)$
+\end_inset
+
+ can be precomputed using a sliding window.
+\end_layout
+
+\begin_layout Standard
+The overall runtime is then 
+\begin_inset Formula $O(n)$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\size(\var p).$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Addsec
