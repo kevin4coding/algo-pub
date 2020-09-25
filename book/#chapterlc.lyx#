@@ -1573,6 +1573,111 @@ We also note that there some int max and int min issues to be dealt with
 \end_layout
 
 \begin_layout Addsec
+LeetCode 459.
+ Repeated Substring Pattern
+\end_layout
+
+\begin_layout Paragraph
+String Prefix Function
+\end_layout
+
+\begin_layout Standard
+To solve this, we note the following proposition:
+\end_layout
+
+\begin_layout Proposition
+Let 
+\begin_inset Formula $s$
+\end_inset
+
+ be a string.
+ If 
+\begin_inset Formula $s$
+\end_inset
+
+ can be constructed by concatenating multiples of its proper substrings,
+ then 
+\begin_inset Formula $n|(n_{s}-\pi(n_{s}-1))=0,$
+\end_inset
+
+ where 
+\begin_inset Formula $\pi$
+\end_inset
+
+ is the string prefix function.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Proof
+Suppose 
+\begin_inset Formula $s=[t]_{k},$
+\end_inset
+
+ where 
+\begin_inset Formula $t$
+\end_inset
+
+ is a proper substring of 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $k\geq2$
+\end_inset
+
+.
+ Without loss of generality, we assume that 
+\begin_inset Formula $t$
+\end_inset
+
+ is the minimal proper substring that has the property.
+ We let 
+\begin_inset Formula $n_{t}=\size(t)$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula $\pi(n_{s}-1)=(k-1)\cdot n_{t}$
+\end_inset
+
+ Then it follows that 
+\begin_inset Formula $n-\pi(n_{s}-1)=n_{t}$
+\end_inset
+
+.
+ which is divisible by 
+\begin_inset Formula $n_{s}=kn_{t}.$
+\end_inset
+
+ On the other hand, suppose 
+\begin_inset Formula $s$
+\end_inset
+
+ cannot be written in the form of 
+\begin_inset Formula $[t]_{k}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Separator plain
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With this in mind, it suffices 
+\end_layout
+
+\begin_layout Addsec
 LeetCode 464.
  Can I Win
 \end_layout
@@ -1648,7 +1753,7 @@ The final answer is then
 
 \begin_layout Addsec
 LeetCode 466.
- Count The Repetitions 
+ Count The Repetitions
 \end_layout
 
 \begin_layout Standard

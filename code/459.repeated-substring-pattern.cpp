@@ -27,10 +27,13 @@ class Solution {
         }());
       }
     };
-    
 
-
-    return n % (n - (f(n - 1) == 0 ? -1 : f(n - 1))) == 0;
+    if (f(n - 1) == 0) {
+      return false;
+    }
+    else {
+      return n % (n - f(n - 1)) == 0;
+    }
   }
 };
-// abczzzabcabcabcabc
+// leabbbbabbbb
