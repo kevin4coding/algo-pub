@@ -145,6 +145,13 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
+\begin_inset Formula $\newcommand{\str}[1]{\texttt{{\color{\stringcolor}{#1}}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset FormulaMacro
 \newcommand{\fn}[1]{\texttt{{\color{red}{#1}}}}
 \end_inset
@@ -185,13 +192,25 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
-\begin_inset Newpage clearpage
+\begin_inset FormulaMacro
+\newcommand{\nullstring}{\var{null\_string}}
 \end_inset
 
 
 \end_layout
 
 \begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\tostring}{\fn{std::to\_string}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
 
 \end_layout
 
@@ -200,6 +219,22 @@ LatexCommand tableofcontents
 LatexCommand input
 preview true
 filename "chapterlc.lyx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+input{leetcode_category.tex}
+\end_layout
 
 \end_inset
 

@@ -31,7 +31,7 @@ class Solution {
 
     const int n = std::size(s);
 
-    auto compress = [&](int i, int j) {
+    auto compress = [&](int i, int j) -> int {
       const int L = j - i + 1;
 
       if (PI(i, j) == 0) {

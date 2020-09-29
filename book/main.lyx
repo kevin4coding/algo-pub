@@ -145,11 +145,32 @@ LatexCommand tableofcontents
 \end_layout
 
 \begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\xout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset FormulaMacro
+\newcommand{\str}[1]{\texttt{{\color{\stringcolor}{#1}}}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
 \begin_inset FormulaMacro
 \newcommand{\fn}[1]{\texttt{{\color{red}{#1}}}}
 \end_inset
 
-
+ 
 \end_layout
 
 \begin_layout Standard
@@ -179,6 +200,22 @@ LatexCommand tableofcontents
 \begin_layout Standard
 \begin_inset FormulaMacro
 \newcommand{\size}{\fn{std::size}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\nullstring}{\var{null\_string}}
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset FormulaMacro
+\newcommand{\tostring}{\fn{std::to\_string}}
 \end_inset
 
 

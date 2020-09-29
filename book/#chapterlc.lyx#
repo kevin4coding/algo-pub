@@ -424,6 +424,27 @@ acwinglink{18143}
 \end_layout
 
 \begin_layout Addsec
+LeetCode 233.
+ Number of Digit One
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
 LeetCode 265.
  Paint House II
 \end_layout
@@ -788,6 +809,22 @@ LeetCode 322.
  Coin Change
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpknapsack}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Dynamic Programming
 \end_layout
@@ -1015,6 +1052,22 @@ LeetCode 357.
  Count Numbers with Unique Digits
 \end_layout
 
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Paragraph
 Dynamic Programming
 \end_layout
@@ -1194,7 +1247,7 @@ Just match
 
 \begin_layout Addsec
 LeetCode 376.
- Wiggle Subsequence
+ Wiggle Subsequence 
 \end_layout
 
 \begin_layout Paragraph
@@ -1574,7 +1627,30 @@ We also note that there some int max and int min issues to be dealt with
 
 \begin_layout Addsec
 LeetCode 459.
- Repeated Substring Pattern
+ Repeated Substring Pattern 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:lc459"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{kmp}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -1674,12 +1750,23 @@ Suppose
 \end_layout
 
 \begin_layout Standard
-With this in mind, it suffices 
+With this in mind, it suffices to compute the prefix function, 
+\begin_inset Formula $\pi$
+\end_inset
+
+, and check.
 \end_layout
 
 \begin_layout Addsec
 LeetCode 464.
- Can I Win
+ Can I Win 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:lc464"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -1691,6 +1778,13 @@ status open
 
 \backslash
 addlist{dpmask}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpminimax}
 \end_layout
 
 \end_inset
@@ -1892,6 +1986,763 @@ The overall runtime is then
 \end_layout
 
 \begin_layout Addsec
+LeetCode 471.
+ Encode String with Shortest Length
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpstring}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming with KMP
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the shortest encoded string for 
+\begin_inset Formula $\var s[i:j].$
+\end_inset
+
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\nullstring & \text{if }j-i+1\leq4\\
+\tostring((j-i+1)/p)\oplus\str [\oplus f(i,i+p-1)\oplus\str ] & \text{else if }p:=\fn{compress}(\var s[i:j])>0\\
+\min_{i\leq k<j}\{f(i,k)\oplus f(k+1,j)\} & \text{else if }\fn{compress}(\var s[i:j])=-1
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Note that the function 
+\begin_inset Formula $\fn{compress}(i,j)$
+\end_inset
+
+ returns the number of multiples of substrings that are used to encode 
+\begin_inset Formula $\var s[i:j]$
+\end_inset
+
+.
+ This can be solved efficiently using KMP algorithm like in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:lc459"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ We will also use a more generalized form of the prefix function 
+\begin_inset Formula $\pi_{1}$
+\end_inset
+
+, where 
+\begin_inset Formula $\pi_{1}(i,j)$
+\end_inset
+
+ denote equals 
+\begin_inset Formula $\pi_{0}(j)$
+\end_inset
+
+ for 
+\begin_inset Formula $\var s[i:j],$
+\end_inset
+
+ where 
+\begin_inset Formula $\pi_{0}$
+\end_inset
+
+ is the original vanilla prefix function.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 472.
+ Concatenated Words
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{trie}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Fold over Trie
+\end_layout
+
+\begin_layout Standard
+We first build a Trie for 
+\begin_inset Formula $\var{words}$
+\end_inset
+
+.
+ Then we implement a fold operation to check if a given word is a concatenated
+ word.
+ Let 
+\begin_inset Formula $f_{s}(n,i,k)$
+\end_inset
+
+ denote the fold function representing if a given word 
+\begin_inset Formula $s$
+\end_inset
+
+ is a concatenated word when we start checking from trie node 
+\begin_inset Formula $n$
+\end_inset
+
+ and index 
+\begin_inset Formula $i$
+\end_inset
+
+ of 
+\begin_inset Formula $s$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f_{s}(n,i,k)=\begin{cases}
+n.\fn{is\_word}\ \fn{and}\ \var{cnt}\geq1 & \text{if }i=\size(s)\\
+\var{false} & \text{else if }s[i]\notin n.\var{next}\\
+f_{s}(n.\var{next}[s[i]],i+1,k)\text{ or }f(n,i+1,k+1) & \text{else if }s[i]\in n.\var{next}\text{ and }n.\var{next}[s[i]].\fn{is\_word}=\var{true}\\
+f_{s}(n.\var{next}[s[i]],i+1,k) & \text{else if }s[i]\in n.\var{next}\text{ and }n.\var{next}[s[i]].\fn{is\_word}=\var{false}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $\{s:s\in\var{words}\text{ and }f_{s}(\var{root},0,0)\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 474.
+ Ones and Zeros
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpknapsack}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,r_{0},r_{1})$
+\end_inset
+
+ denote the maximum number of strings can be made with 
+\begin_inset Formula $r_{0}$
+\end_inset
+
+ 0's and 
+\begin_inset Formula $r_{1}$
+\end_inset
+
+ 1's for 
+\begin_inset Formula $\var{strs}[0:i].$
+\end_inset
+
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,r_{0},r_{1})=\begin{cases}
+1 & \text{if }i=0\text{ and }\var{costs}[i]\leq(r_{0},r_{1})\\
+0 & \text{else if }i=0\text{ and }\var{costs}[i]>(r_{0},r_{1})\\
+\max(f(i-1,r_{0}-\var{costs}[i][0],r_{1}-\var{costs}[i][1]),f(i-1,r_{0},r_{1}) & \text{else if }i>0\text{ and }\var{costs}[i]\leq(r_{0},r_{1})\\
+f(i-1,r_{0},r_{1}) & \text{else if }i>0\text{ and }\var{costs}[i]>(r_{0},r_{1})
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final solution is 
+\begin_inset Formula $f(\ell-1,m,n),$
+\end_inset
+
+ where 
+\begin_inset Formula $\ell=\size(\var{strs})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 486.
+ Predict the Winner
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpminimax}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ be the difference of score between player1 and player2 if they are to pick
+ numbers between 
+\begin_inset Formula $[i,...,j]$
+\end_inset
+
+ with player 1 pick first.
+ Note that since both players are playing optimally, 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ also represents the difference player2 and player1 if they are to pick
+ numbers between 
+\begin_inset Formula $[i,...,j]$
+\end_inset
+
+ with player 2 pick first.
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\var{nums}[i] & \text{if }i=j\\
+\max(\var{nums}[i],\var{nums}[j])-\min(\var{nums}[i],\var{nums}[j]) & \text{else if }i+1=j\\
+\max(\var{nums}[i]-f(i+1,j),\var{nums}[j]-f(i,j-1)) & \text{o.w. }
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $f(0,n-1)\geq0,$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\size(\var{nums}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 514.
+ Freedom Trail
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpinterval}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the minimum number to open the door given that is key is 
+\begin_inset Formula $\var{key}[j:-1]$
+\end_inset
+
+ and the starting position of the ring is 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+0 & \text{if }\var{ring}[i]=\var{key}[j]\text{ and }j=n_{\var{key}}-1\\
+f(i,j+1) & \text{else if }\var{ring}[i]=\var{key}[j]\text{ and }j<n_{\var{key}}-1\\
+\min(\var{first\_ll}(i,\var{key}[j].\var{steps},\var{first\_rr}(i,\var{key}[j]).\var{steps}) & \text{else if }\var{ring}[i]\neq\var{key}[j]\text{ and }j=n_{\var{key}}-1\\
+\min(G_{\var{ll}},G_{\var{rr}}) & \text{else if }\var{ring}[i]\neq\var{key}[j]\text{ and }j<n_{\var{key}}-1
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{align}
+G_{\var{ll}}(i,j) & =\var{first\_ll}(i,\var{key}[j]).\var{steps}+f(\var{first\_ll}(i,\var{key}[j]).\var{id},\var{key}[j+1]),\\
+G_{\var{rr}}(i,j) & =\var{first\_rr}(i,\var{key}[j]).\var{steps}+f(\var{first\_rr}(i,\var{key}[j]).\var{id},\var{key}[j+1]).
+\end{align}
+
+\end_inset
+
+We note that 
+\begin_inset Formula $\var{first\_ll}(i,c)$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{first\_rr}(i,c)$
+\end_inset
+
+ returns the first match on left (right) of the ring for character 
+\begin_inset Formula $c$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 516.
+ Longest Palindromic Subsequence
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpinterval}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpstring}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{palindrome}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the longest palindrome for 
+\begin_inset Formula $\var s[i:j]$
+\end_inset
+
+.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+1 & \text{if }i=j\\
+2 & \text{else if }i+1=j\text{ and }\var s[i]=\var s[j]\\
+1 & \text{else if }i+1=j\text{ and }\var s[i]\neq\var s[j]\\
+2+f(i+1,j-1) & \text{else if }i+1<j\text{ and }\var s[i]=\var s[j]\\
+\max(f(i+1,j)+f(i,j-1)) & \text{else if }i+1<j\text{ and }\var s[i]\neq\var s[j]
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is 
+\begin_inset Formula $f(0,n-1),$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\size(s).$
+\end_inset
+
+ The overall running time is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 517.
+ Super Washing Machines
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{greedy}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Greedy
+\end_layout
+
+\begin_layout Standard
+First, we need to check if the total number of machines is divisible by
+ 
+\begin_inset Formula $n$
+\end_inset
+
+.
+ If not, then it is not possible to produce the desired outcome and therefore
+ return 
+\begin_inset Formula $-1$
+\end_inset
+
+.
+ Otherwise, we first compute the average number of clothes that are supposed
+ to be in each machine, 
+\begin_inset Formula $\var{avg},$
+\end_inset
+
+ keep track for each machine 
+\begin_inset Formula $i$
+\end_inset
+
+, 
+\begin_inset Formula 
+\begin{align}
+L_{i} & =\max(0,(i+1)\cdot\var{avg}+\var{RMQ}(0,i-1)),\\
+R_{i} & =\max(0,(n-(i+1))\cdot\var{avg}+\var{RMQ}(i+1,n-1)),\\
+T_{i} & =R_{i}+L_{i}.
+\end{align}
+
+\end_inset
+
+Note that 
+\begin_inset Formula $L_{i}$
+\end_inset
+
+ represents the total number of clothes needed to be transferred from 
+\begin_inset Formula $\var{machines}[i+1:-1]$
+\end_inset
+
+ to 
+\begin_inset Formula $\var{machines}[0:i-1]$
+\end_inset
+
+ if any to balance the clothes count and similarly 
+\begin_inset Formula $R_{i}$
+\end_inset
+
+ represents the total number of clothes needed to be transferred from 
+\begin_inset Formula $\var{machines}[0:i-1]$
+\end_inset
+
+ to 
+\begin_inset Formula $\var{machines}[i+1,-1]$
+\end_inset
+
+ to balance the clothes.
+ We claim that the final answer must be one of the 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+'s.
+ This is because suppose otherwise there doesn't exists a washing machines
+ whose total transfer 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ is not the answer, then there must be the cases where some machine 
+\begin_inset Formula $A$
+\end_inset
+
+ moved once machine 
+\begin_inset Formula $B$
+\end_inset
+
+ is fixed and then machine 
+\begin_inset Formula $B$
+\end_inset
+
+ moved once while 
+\begin_inset Formula $A$
+\end_inset
+
+ is fixed.
+ This is a contradiction since 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ can be chosen at the same time.
+ Hence, therefore the final answer is then 
+\begin_inset Formula $\max_{i}\{T_{i}\}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 523.
+ Continuous Subarray Sum
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{prefixsum}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Prefix Sum
+\end_layout
+
+\begin_layout Standard
+Note that 
+\begin_inset Formula 
+\begin{align}
+\left(\sum_{p=i}^{j}\var{nums}[p]\right)\mod k & =\bigg(\sum_{p=0}^{j}\var{nums}[p]-\sum_{p=i-1}^{j}\var{nums}[p]\bigg)\mod k\\
+ & =\bigg[\bigg(\sum_{p=0}^{j}\var{nums}[p]\bigg)\mod k\bigg]-\bigg[\sum_{p=i-1}^{j}\var{nums}[p]\mod k\bigg].
+\end{align}
+
+\end_inset
+
+Therefore, it follows that 
+\begin_inset Formula 
+\begin{equation}
+\sum_{p=i}^{j}\var{nums}[p]\ |\ k\iff\bigg[\bigg(\sum_{p=0}^{j}\var{nums}[p]\bigg)\mod k\bigg]=\bigg[\sum_{p=i-1}^{j}\var{nums}[p]\mod k\bigg].
+\end{equation}
+
+\end_inset
+
+So we need to compute the prefix sum mod of 
+\begin_inset Formula $k$
+\end_inset
+
+ of 
+\begin_inset Formula $\var{nums}$
+\end_inset
+
+ and use a hashmap to check.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 600.
+ Non-negative Integers without Consecutive Ones
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(k)$
+\end_inset
+
+ denote the count of numbers without consecutive ones for 
+\begin_inset Formula $k$
+\end_inset
+
+ digits number that starts with 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ Then take 
+\begin_inset Formula $k=6$
+\end_inset
+
+ for example, there are only two portions are valid choices, namely 
+\begin_inset Formula $000000\sim011111$
+\end_inset
+
+ and 
+\begin_inset Formula $010000\sim010111$
+\end_inset
+
+.
+ This is because any number that starts with 
+\begin_inset Formula $11...$
+\end_inset
+
+ does not meet the condition.
+ Note that the count of numbers that satisfy the condition in 
+\begin_inset Formula $000000\sim011111$
+\end_inset
+
+ is essentially 
+\begin_inset Formula $f5)$
+\end_inset
+
+ because the first zero is fixed and similarly the count for 
+\begin_inset Formula $010000\sim010111$
+\end_inset
+
+ is 
+\begin_inset Formula $f(4).$
+\end_inset
+
+ Therefore, it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(k)=\begin{cases}
+1 & \text{if }k=0\\
+2 & \text{else if }k=1\\
+f(k-2)+f(k-1) & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then let 
+\begin_inset Formula $g(i)$
+\end_inset
+
+ denote the count of numbers that satisfy the condition for 
+\begin_inset Formula $\var{nums}[i:-1];$
+\end_inset
+
+ we have that 
+\begin_inset Formula 
+\begin{equation}
+g(i)=\begin{cases}
+1 & \text{if }i=0\text{ and }\var{binary}[i]=0\\
+2 & \text{else if }i=0\text{ and }\var{binary}[i]=1\\
+f(i)+g(i-1) & \text{else if }i>0\text{ and }\var{binary}[i]=1\text{ and }\var{binary}[i]=0\\
+f(i)+f(i-1) & \text{else if }i>0\text{ and }\var{binary}[i]=1\text{ and }\var{binary}[i]=1\\
+g(i-1) & \text{else if }i>0\text{ and }\var{binary}[i]=0
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\var{binary}$
+\end_inset
+
+is the binary representation of 
+\begin_inset Formula $\var{num}.$
+\end_inset
+
+ Then final answer is then 
+\begin_inset Formula $g(n-1)$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\size(\var{binary})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
 LeetCode 624.
  Maximum Distance in Arrays
 \end_layout
@@ -1992,6 +2843,159 @@ acwinglink{18144}
 \end_layout
 
 \begin_layout Addsec
+LeetCode 629.
+ K Inverse Pairs Array
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpinterval}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ be the number of arrays from 
+\begin_inset Formula $1$
+\end_inset
+
+ to 
+\begin_inset Formula $i$
+\end_inset
+
+ that contains 
+\begin_inset Formula $j$
+\end_inset
+
+ inverse pairs.
+ Then by noting that placing 
+\begin_inset Formula $(i+1)$
+\end_inset
+
+ on 
+\begin_inset Formula $x$
+\end_inset
+
+ positions away from the right of 
+\begin_inset Formula $[1,...,i]$
+\end_inset
+
+ creates 
+\begin_inset Formula $x$
+\end_inset
+
+ more inverse pairs, we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+1 & \text{if }i=1\text{ and }j=0\\
+0 & \text{else if }i=1\text{ and }j>0\\
+1 & \text{else if }j=0\\
+\sum_{m=0}^{\min(i-1,j)}f(i-1,j-m) & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Such an algorithm has a running time complexity of 
+\begin_inset Formula $O(n^{2}k)$
+\end_inset
+
+, which is unacceptable for the size of the input of the problem.
+ So it is necessary to come up with an optimization scheme.
+ Note that when 
+\begin_inset Formula $1<i\leq j$
+\end_inset
+
+, we have that 
+\begin_inset Formula 
+\begin{align}
+f(i,j) & =\sum_{m=0}^{\min(i-1,j)}f(i-1,j-m)=\sum_{m=0}^{i-1}f(i-1,j-m),\tag{A}\\
+f(i.j-1) & =\sum_{m=0}^{\min(i-1,j-1)}f(i-1,j-1-m)=\sum_{m=1}^{i}f(i-1,j-m).\tag{B}
+\end{align}
+
+\end_inset
+
+Subtracting (B) from (A) yields 
+\begin_inset Formula 
+\begin{align}
+f(i,j)-f(i,j-1) & =\sum_{m=0}^{i-1}f(i-1,j-m)-\sum_{m=1}^{i}f(i-1,j-m)=f(i-1,j)-f(i-1,j-i),
+\end{align}
+
+\end_inset
+
+which implies that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=f(i-1,j)+f(i,j-1)-f(i-1,j-i).
+\end{equation}
+
+\end_inset
+
+On the other hand, if 
+\begin_inset Formula $i>j>0,$
+\end_inset
+
+ we have that 
+\begin_inset Formula 
+\begin{align}
+f(i,j) & =\sum_{m=0}^{\min(i-1,j)}f(i-1,j-m)=\sum_{m=0}^{j}f(i-1,j-m),\tag{C}\\
+f(i,j-1) & =\sum_{m=0}^{\min(i-1,j-1)}f(i-1,j-1-m)=\sum_{m=1}^{j}f(i-1,j-m).\tag{D}
+\end{align}
+
+\end_inset
+
+Subtracting (D) from (C) yields that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)-f(i,j-1)=f(i-1,j),
+\end{equation}
+
+\end_inset
+
+which implies that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=f(i-1,j)+f(i,j-1).
+\end{equation}
+
+\end_inset
+
+Combining together, we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+0 & \text{if }i=1\text{ and }j>0\\
+1 & \text{else if }i=1\text{ and }j=0\\
+1 & \text{else if }j=1\\
+f(i-1,j)+f(i,j-1) & \text{else if }i>j\\
+f(i-1,j)+f(i,j-1)-f(i-1,j-i) & \text{else if }i\leq j
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the running time complexity 
+\end_layout
+
+\begin_layout Addsec
 LeetCode 723.
  Candy Crush
 \end_layout
@@ -2004,7 +3008,7 @@ name "par:723-simulation-1"
 
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Standard
@@ -2060,7 +3064,7 @@ acwinglink{18139}
 
 \end_inset
 
- 
+
 \end_layout
 
 \begin_layout Addsec
@@ -2110,6 +3114,115 @@ status open
 
 \backslash
 acwinglink{18145}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 788.
+ Rotated Digits
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 877.
+ Stone Game
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpminimax}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the difference between the numbers of stones between Alex and Lee
+ if they are to pick from 
+\begin_inset Formula $\var{piles}[i:j]$
+\end_inset
+
+ with Alex picks first.
+ Then note that because each player is playing optimally, 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ is also equal to the difference when Lee picks first.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\max(\var{piles}[i],\var{piles}[j])-\min(\var{pile}[i],\var{piles}[j]) & \text{if }i+1=j\\
+\max(\var{piles}[i]-f(i+1,j),\var{piles}[j]-f(i,j-1) & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is 
+\begin_inset Formula $f(0,n-1)>0,$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\size(\var{piles}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 902.
+ Number At Most 
+\begin_inset Formula $N$
+\end_inset
+
+ Given Digit Set
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
 \end_layout
 
 \end_inset
@@ -2171,6 +3284,27 @@ where
 
 , where 
 \begin_inset Formula $n=\fn{std::size}(\var{days}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1012.
+ Numbers With Repeated Digits
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
+\end_layout
+
 \end_inset
 
 
@@ -2373,7 +3507,7 @@ acwinglink{18157}
 
 \begin_layout Addsec
 LeetCode 1380.
- Lucky Numbers in a Matrix
+ Lucky Numbers in a Matrix 
 \end_layout
 
 \begin_layout Paragraph
@@ -2535,6 +3669,27 @@ status open
 
 \backslash
 acwinglink{18213}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 1397.
+ Find All Good Strings
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpdigit}
 \end_layout
 
 \end_inset
