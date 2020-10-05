@@ -565,7 +565,14 @@ th fence.
 
 \begin_layout Addsec
 LeetCode 300.
- Longest Increasing Subsequence
+ Longest Increasing Subsequence 
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:lc300-longest-increasing-subsequence"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Paragraph
@@ -2992,7 +2999,572 @@ f(i-1,j)+f(i,j-1)-f(i-1,j-i) & \text{else if }i\leq j
 
 \end_inset
 
-Then the running time complexity 
+Then the running time complexity is reduced to 
+\begin_inset Formula $O(nk).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 639.
+ Decode Ways II
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpcount}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the number of ways to decode 
+\begin_inset Formula $\var s[0:i].$
+\end_inset
+
+ Then 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+9 & \text{if }i=1\text{ and }\var s[i]=\var *\\
+1 & \text{else if }i=1\text{ and }s[i]\in[1,...,9]\\
+1 & \text{else if }i=0\\
+9\cdot f(i-1)+15\cdot f(i-2) & \text{else if }\var s[i]=\var *\text{ and }\var s[i-1]=\var *\\
+9\cdot f(i-1)+9\cdot f(i-2) & \text{else if }\var s[i]=\var *\text{ and }\var s[i-1]=1\\
+9\cdot f(i-1)+6\cdot f(i-2) & \text{else if }\var s[i]=\var *\text{ and }\var s[i-1]=2\\
+9\cdot f(i-1) & \text{else if }\var s[i]=\var *\text{ and }\var s[i-1]\in\{0\}\cup\{3,...9\}\\
+2\cdot f(i-2) & \text{else if }\var s[i]=0\text{ and }\var s[i-1]=\var *\\
+f(i-2) & \text{else if }\var s[i]=0\text{ and }\var s[i-1]\in\{1,2\}\\
+f(i-1)+2\cdot f(i-2) & \text{else if }\var s[i]\in\{1,...,6\}\text{ and }\var s[i-1]\in\{\var *,1,2\}\\
+f(i-1) & \text{else if }\var s[i]\in\{1,...,6\}\text{ and }\var s[i-1]\in\{0\}\cup\{3,...,9\}\\
+f(i-1)+f(i-2) & \text{else if }\var s[i]\in\{7,...,9\}\text{ and }\var s[i-1]\in\{\var *,1\}\\
+f(i-1) & \text{else if }\var s[i]\in\{7,...,9\}\text{ and }\var s[i-1]\in\{0\}\cup\{2,...,9\}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $f(n-1)$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\size(\var s).$
+\end_inset
+
+ The total running complexity is 
+\begin_inset Formula $O(n).$
+\end_inset
+
+ Note that there are cases in which 
+\begin_inset Formula $\var s$
+\end_inset
+
+ is not a valid input.
+ We deal with these cases by exceptions.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 646.
+ Maximum Length of Pair Chain
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dplis}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+First, we sort 
+\begin_inset Formula $\var{pairs}$
+\end_inset
+
+ by lexicographical order.
+ Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum length of the pair chained ending with 
+\begin_inset Formula $\var{pairs}[i].$
+\end_inset
+
+ Then we have
+\end_layout
+
+\begin_layout Paragraph
+Patience Sorting
+\end_layout
+
+\begin_layout Addsec
+LeetCode 647.
+ Palindromic Substrings
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote if 
+\begin_inset Formula $\var s[i:j]$
+\end_inset
+
+ is palindrome or not.
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+\var{true} & \text{if }i=j\\
+\var{true} & \text{else if }i+1=j\text{ and }\var s[i]=\var s[j]\\
+\var{false} & \text{else if }i+1=j\text{ and }\var s[i]\neq\var s[j]\\
+f(i+1,j-1) & \text{else if }\var s[i]=\var s[j]\\
+\var{false} & \text{else if }\var s[i]\neq\var s[j]
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the final answer is 
+\begin_inset Formula $\sum_{(i,j)\in[0,...,n-1]^{2}}\mathbb{I}(f(i,j)=\var{true}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 650.
+ 2 Keys Keyboard
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the minimum number of operations to reach 
+\begin_inset Formula $i$
+\end_inset
+
+ copies of 
+\begin_inset Formula $\var A$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+0 & \text{if }i=1\\
+i & \text{else if }i\text{ is prime}\\
+\min_{j\in[1,...,i]\text{ and }i|j}f(i/j)+j & \text{else if }i\text{ is not prime}
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $f(i/j)+j$
+\end_inset
+
+ comes from 
+\begin_inset Formula $f(i/j)+\underbrace{1}_{\var{copy}}+\underbrace{j-1}_{\var{paste}}.$
+\end_inset
+
+ The overall running time complexity is 
+\begin_inset Formula $O(N^{2}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 651.
+ 4 Keys Keyboard
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the maximum number of characters with a max of 
+\begin_inset Formula $i$
+\end_inset
+
+ operations.
+ Note that to achieve maximum characters the last operations must be a pressing
+ 
+\begin_inset Formula $\var A$
+\end_inset
+
+ or pressing 
+\begin_inset Formula $\var{Ctrl+V}$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+1 & \text{if }i=1\\
+2 & \text{else if }i=2\\
+\max(f(i-1)+1,\max_{2\leq j\leq i-2}\{f(j)\cdot(i-(j+2)+1)\} & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $f(N).$
+\end_inset
+
+ The overall running time complexity is 
+\begin_inset Formula $O(N^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 656.
+ Coin Path
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the minimum path to reach 
+\begin_inset Formula $n$
+\end_inset
+
+ from 
+\begin_inset Formula $\var A[i].$
+\end_inset
+
+ Then 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\var A[i] & \text{if }i=n-1\\
+\min_{j\in\{i+1,...,i+B\}}\{\var A[i]+f(j)\} & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then constructed by reconstructing from 
+\begin_inset Formula $f$
+\end_inset
+
+.
+ The running time complexity is 
+\begin_inset Formula $O(nB).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 664.
+ Strange Printer
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the minimum operations to print 
+\begin_inset Formula $\var s[i:j]$
+\end_inset
+
+.
+ Note that there are two options for the first step of 
+\begin_inset Formula $\var s[i:j]:$
+\end_inset
+
+ 1.
+ just print one letter; 2.
+ print all occurrences of 
+\begin_inset Formula $\var s[i]$
+\end_inset
+
+ up to some 
+\begin_inset Formula $k\in[i+1,j].$
+\end_inset
+
+ Then, it we have that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+1 & \text{if }i=j\\
+0 & \text{else if }i>j\\
+1 & \text{else if }i+1=j\text{ and }\var s[i]=\var s[j]\\
+2 & \text{else if }i+1=j\text{ and }\var s[i]\neq\var s[j]\\
+\min(1+f(i+1,j),{\displaystyle \min_{k\in[i+1,...,j]\text{ and }\var s[i]=\var s[k]}}\{f(i,k-1)+f(k+1,j)\}) & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 673.
+ Number of Longest Increasing Subsequence
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the length of the longest increasing subsequence ending with 
+\begin_inset Formula $\var{nums}[i],$
+\end_inset
+
+ whose precise definition can be found in 
+\begin_inset CommandInset ref
+LatexCommand nameref
+reference "sec:lc300-longest-increasing-subsequence"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+ And let 
+\begin_inset Formula $g(i)$
+\end_inset
+
+ denote the number of longest increasing subsequence ending in 
+\begin_inset Formula $\var{num}[i].$
+\end_inset
+
+ Then 
+\begin_inset Formula 
+\begin{equation}
+g(i)=\begin{cases}
+1 & \text{if }i=0\text{ or }\var{nums}[i]\leq\min\{\var{nums}[0:i-1]\}\\
+\sum_{j=0}^{i-1}\mathbb{I}(\var{nums}[j]<\var{nums}[i])\cdot g(j) & \text{o.w. }
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $\sum_{i=0}^{n-1}\mathbb{I}(f(i)=\var{LIS})\cdot g(i),$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\size(\var{nums})$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{LIS}=\max_{i=0}^{n-1}\{f(i)\}.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 691.
+ Stickers to Spell Word
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpmask}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(T)$
+\end_inset
+
+ denote the minimum stickers needed to fill the string 
+\begin_inset Formula $T$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(T)=\begin{cases}
+0 & \text{if }T=\var{\nullstring}\\
+\min_{S\in\var{stickers}}(\fn{apply\_stickers}(S,T)) & \text{o.w. }
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\fn{apply\_stickers}(S,T)$
+\end_inset
+
+ applies the sticker 
+\begin_inset Formula $S$
+\end_inset
+
+ to 
+\begin_inset Formula $T$
+\end_inset
+
+ and returns the remaining characters to be filled.
+ The final answer is 
+\begin_inset Formula $f(\var{target}).$
+\end_inset
+
+ Note that 
+\begin_inset Formula $T$
+\end_inset
+
+ could be represented in bitmasks.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 712.
+ Minimum ASCII Delete Sum for Two Strings
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+First we pad 
+\begin_inset Formula $\var{s1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{s2}$
+\end_inset
+
+ with 
+\begin_inset Formula $\var{\#}$
+\end_inset
+
+ for the sake of Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the minimum ASCII sum to make 
+\begin_inset Formula $\var{s1}[0:i]$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{s2}[0:j]$
+\end_inset
+
+ the same.
+ Then it follows that 
+\begin_inset Formula 
+\begin{align}
+f(i,j) & =\begin{cases}
+0 & \text{if }i=0\text{ and }j=0\\
+\fn{int}(\var{s1}[i])+f(i-1,j) & \text{else if }j=0\text{ and }i>0\\
+\fn{int}(\var{s2}[j])+f(i,j-1) & \text{else if }i=0\text{ and }j>0\\
+f(i-1,j-1) & \text{else if }\var{s1}[i]=\var{s2}[j]\\
+\min(\fn{int}(\var{s1}[i])+f(i-1,j),\fn{int}(\var{s2}[j])+f(i,j-1) & \text{else if }\var{s1}[i]\neq\var{s2}[j]
+\end{cases}.
+\end{align}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $f(n_{1}-1,n_{2}-1),$
+\end_inset
+
+ where 
+\begin_inset Formula $n_{1}=\size(\var{s1})$
+\end_inset
+
+ and 
+\begin_inset Formula $n_{2}=\size(\var{s2})$
+\end_inset
+
+.
+ The overall running time complexity is 
+\begin_inset Formula $O(n_{1}n_{2})$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Addsec
@@ -3061,6 +3633,176 @@ status open
 \backslash
 acwinglink{18139}
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 727.
+ Minimum Window Subsequence
+\end_layout
+
+\begin_layout Paragraph
+Sliding Window with Greedy
+\end_layout
+
+\begin_layout Standard
+Use a sliding window to accumulate result.
+ Every time we come across a matching window, meaning that 
+\begin_inset Formula $\var T\subseteq\var S[i:j]$
+\end_inset
+
+ for some 
+\begin_inset Formula $i,j\in[0,...,n-1]$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\size(\var S),$
+\end_inset
+
+ we find the smallest subset 
+\begin_inset Formula $\var S[k:j]$
+\end_inset
+
+ for 
+\begin_inset Formula $k\in[i,...,j-1]$
+\end_inset
+
+ such that 
+\begin_inset Formula $\var T\subset\var S$
+\end_inset
+
+ and update the accumulators.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 730.
+ Count Difference Palindromic Subsequence
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpcount}
+\end_layout
+
+\begin_layout Plain Layout
+
+
+\backslash
+addlist{dpinterval}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j)$
+\end_inset
+
+ denote the count of difference palindromic subsequences in 
+\begin_inset Formula $\var S[i:j].$
+\end_inset
+
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i,j)=\begin{cases}
+1 & \text{if }i=j\\
+2 & \text{else if }i+1=j\\
+f(i+1,j)+f(i,j-1)-f(i+1,j-1) & \text{else if }\var S[i]\neq\var S[j]\\
+2\cdot f(i+1,j-1)+2 & \text{else if }\var S[i]=\var S[j]\text{ and }\var S[i]\notin\var S[i+1:j-1]\\
+2\cdot f(i+1,j-1)+1 & \text{else if }\var S[i]=\var S[j]\text{ and }\fn{count}(\var S[i],\var S[i+1:j-1])=1\\
+2\cdot f(i+1,j-1)-f(\var{ll}+1,\var{rr}-1) & \text{else if }\var S[i]=\var S[j]\text{ and }\fn{count}(\var S[i],\var S[i+1:j-1])>1
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula $\var{ll}:=\min\{k\in[i+1,j-1]:\var S[k]=\var S[i]\}$
+\end_inset
+
+ and 
+\begin_inset Formula $\var{ll}:=\max\{k\in[i+1,j-1]:\var S[k]=\var S[i]\}.$
+\end_inset
+
+ The final answer is 
+\begin_inset Formula $f(0,n-1)$
+\end_inset
+
+, where 
+\begin_inset Formula $n=\size(\var S).$
+\end_inset
+
+ The overall running time complexity is 
+\begin_inset Formula $O(n^{2}).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 740.
+ Delete and Earn
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+First, we let 
+\begin_inset Formula $\var N$
+\end_inset
+
+ denote the sorted and no-duplicate version of 
+\begin_inset Formula $\var{nums}$
+\end_inset
+
+ and 
+\begin_inset Formula $\fn{score}(x)$
+\end_inset
+
+ be a function that keeps tracks of scores earned if 
+\begin_inset Formula $x$
+\end_inset
+
+ is to be deleted.
+ Let 
+\begin_inset Formula $f(i)$
+\end_inset
+
+ denote the number of points earned when solving the subproblem for 
+\begin_inset Formula $\var N[0:i]$
+\end_inset
+
+.
+ Then 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+\fn{score}(\var N[0]) & \text{if }i=0\\
+\max(\fn{score}(\var N[0]),\fn{score}(\var N[1])) & \text{else if }i=1\text{ and }\var N[0]+1=\var N[1]\\
+\fn{score}(\var N[0])+\fn{score}(\var N[1]) & \text{else if }i=1\text{ and }\var N[0]+1<\var N[1]\\
+\max(\fn{score}(\var N[i])+f(i-2),f(i-1)) & \text{else if }i>1\text{ and }\var N[i-1]+1=\var N[i]\\
+f(i-1)+\fn{score}
+\end{cases}
+\end{equation}
 
 \end_inset
 
@@ -3507,7 +4249,7 @@ acwinglink{18157}
 
 \begin_layout Addsec
 LeetCode 1380.
- Lucky Numbers in a Matrix 
+ Lucky Numbers in a Matrix
 \end_layout
 
 \begin_layout Paragraph

@@ -60,7 +60,7 @@ algorithm2e
 \biblio_style plain
 \use_bibtopic false
 \use_indices false
-\paperorientation landscape
+\paperorientation portrait
 \suppress_date false
 \justification true
 \use_refstyle 1
@@ -106,22 +106,6 @@ Jason Sun
 
 \begin_layout Standard
 \begin_inset Newpage newpage
-\end_inset
-
-
-\end_layout
-
-\begin_layout Standard
-\begin_inset ERT
-status open
-
-\begin_layout Plain Layout
-
-
-\backslash
-twocolumn
-\end_layout
-
 \end_inset
 
 
