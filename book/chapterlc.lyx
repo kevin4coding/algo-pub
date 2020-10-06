@@ -3818,7 +3818,64 @@ The final answer if
 \begin_inset Formula $O(n\log n).$
 \end_inset
 
- 
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 741.
+ Cherry Pickup
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(r_{1},c_{1},r_{2})$
+\end_inset
+
+ denote the maximum cherries to be picked when for two person starting walking
+ from position 
+\begin_inset Formula $(r_{1},c_{1})$
+\end_inset
+
+ and 
+\begin_inset Formula $(r_{2},r_{1}+c_{1}-r_{2})$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(r_{1},c_{1},r_{2})=\begin{cases}
+\var{grid}[r_{1}][c_{1}] & \text{if }r_{1}=N-1\text{ and }c_{1}=N-1\text{ and }r_{2}=N-1\\
+-\infty & \text{else if }\var{not}\ \fn{invalid}(r_{1},c_{2})\text{ or }\var{not}\ \fn{invalid}(r_{2},c_{2})\\
+\var{grid}[r_{1}][c_{1}]+\var{grid}[r_{2}][c_{2}]+\fn{next}(r_{1},c_{1},r_{2}) & \text{else if }r_{1}+c_{1}-r_{2}\neq c_{1}\\
+\var{grid}[r_{1}][c_{1}]+\fn{next}(r_{1},c_{1},r_{2}) & \text{else if }r_{1}+c_{1}-r_{2}=c_{1}
+\end{cases},
+\end{equation}
+
+\end_inset
+
+where 
+\begin_inset Formula 
+\begin{align}
+\fn{next}(r_{1},c_{1},r_{2}) & =\max(f(r_{1}+1,c_{1},r_{1}),f(r_{1}+1,c_{1},r_{1}+1),f(r_{1},c_{1}+1,r_{1}),f(r_{1},c_{1}+1,r_{1}+1)),\\
+\fn{invalid}(r,c) & =(\var{grid}[r][c]=-1)\text{ or }r=N\text{ or }c=N.
+\end{align}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $f(0,0,0).$
+\end_inset
+
+ And the running time complexity is 
+\begin_inset Formula $O(N^{3}).$
+\end_inset
+
+
 \end_layout
 
 \begin_layout Addsec
@@ -3873,6 +3930,103 @@ acwinglink{18145}
 \end_inset
 
 
+\end_layout
+
+\begin_layout Addsec
+LeetCode 750.
+ Number of Corner Rectangles
+\end_layout
+
+\begin_layout Paragraph
+Memoization
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(r_{1},r_{2})$
+\end_inset
+
+ denote the number of corner rectangles having upper and lower sides 
+\begin_inset Formula $r_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{2}$
+\end_inset
+
+.
+ Then we have that 
+\begin_inset Formula 
+\begin{equation}
+f(r_{1},r_{2})=\binom{\sum_{c=0}^{C-1}\mathbb{I}(\var{grid}[r_{1}][c]=1\text{ and }\var{grid}[r_{2}][c]=1)}{2}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $\sum_{i=0}^{R-1}\sum_{j=i+1}^{R-1}f(i,j).$
+\end_inset
+
+ The running time complexity is 
+\begin_inset Formula $O(R^{2}C).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 764.
+ Largest Plus Sign
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,j,k)$
+\end_inset
+
+ denote the farthest reach of consecutive ones in direction 
+\begin_inset Formula $k$
+\end_inset
+
+ from 
+\begin_inset Formula $\var{grid}[i][j].$
+\end_inset
+
+ Note that we need to manually construct the 
+\begin_inset Formula $\var{grid}$
+\end_inset
+
+ variable since it is not given in the problem.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,j,k)=\begin{cases}
+0 & \text{if }\var{grid}[i][j]=0\\
+1+\mathbb{I}(\fn{inbound}(i+\var{dr}[k],j+\var{dc}[k]))\cdot f(i+\var{dr}[k],j+\var{dc}[k],k) & \text{else if }\var{grid}[i][j]=1
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+Then the length of the plus sign at 
+\begin_inset Formula $\var{grid}[i][j]=\min_{k=0}^{3}\{f(i,j,k)\}.$
+\end_inset
+
+ Then it remains to accumulate the result across the 
+\begin_inset Formula $\var{grid}$
+\end_inset
+
+.
+ The overall running time complexity is 
+\begin_inset Formula $O(N^{2})$
+\end_inset
+
+.
+ 
 \end_layout
 
 \begin_layout Addsec
