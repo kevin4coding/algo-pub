@@ -4013,10 +4013,19 @@ f(i,j,k)=\begin{cases}
 \end_inset
 
 Then the length of the plus sign at 
-\begin_inset Formula $\var{grid}[i][j]=\min_{i=0}^{3}\{f(i,j,k$
+\begin_inset Formula $\var{grid}[i][j]=\min_{k=0}^{3}\{f(i,j,k)\}.$
 \end_inset
 
+ Then it remains to accumulate the result across the 
+\begin_inset Formula $\var{grid}$
+\end_inset
 
+.
+ The overall running time complexity is 
+\begin_inset Formula $O(N^{2})$
+\end_inset
+
+.
 \end_layout
 
 \begin_layout Addsec
@@ -4034,6 +4043,355 @@ status open
 \backslash
 addlist{dpdigit}
 \end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 801.
+ Minimum Swaps to Make Sequences Increasing
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,0)$
+\end_inset
+
+ denote the minimum swap to make both 
+\begin_inset Formula $\var A[0:i]$
+\end_inset
+
+ and 
+\begin_inset Formula $\var B[0:i]$
+\end_inset
+
+ sorted without swapping 
+\begin_inset Formula $\var A[i]$
+\end_inset
+
+ and 
+\begin_inset Formula $\var B[i]$
+\end_inset
+
+, and 
+\begin_inset Formula $f(i,1)$
+\end_inset
+
+ denote the minimum swap to make both 
+\begin_inset Formula $\var A[0:i]$
+\end_inset
+
+ and 
+\begin_inset Formula $\var B[0:i]$
+\end_inset
+
+ sorted with swapping 
+\begin_inset Formula $\var A[i]$
+\end_inset
+
+ and 
+\begin_inset Formula $\var B[i]$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,k)=\begin{cases}
+\mathbb{I}(k=1) & \text{if }i=0\\
+\begin{split}\min( & \mathbb{I}_{\infty}(\var A[i]>\var A[i-1]\text{ and }\var B[i]>\var B[i-1])\cdot f(i-1,0),\\
+ & \mathbb{I}_{\infty}(\var A[i]>\var B[i-1]\text{ and }\var B[i]>\var A[i-1])\cdot f(i-1,1))
+\end{split}
+ & \text{else if }i>0\text{ and }k=0\\
+\begin{split}\min( & \mathbb{I}_{\infty}(\var A[i]>\var A[i-1]\text{ and }\var B[i]>\var B[i-1])\cdot f(i-1,1)+1,\\
+ & \mathbb{I}_{\infty}(\var A[i]>\var B[i-1]\text{ and }\var B[i]>\var A[i-1])\cdot f(i-1,0)+1)
+\end{split}
+ & \text{else if }i>0\text{ and }k=1
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $\min(f(n-1,0),f(n-1,1)),$
+\end_inset
+
+ where 
+\begin_inset Formula $n=\size(\var A).$
+\end_inset
+
+The running time complexity is 
+\begin_inset Formula $O(n).$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Addsec
+LeetCode 808.
+ Soup Servings
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(a,b)$
+\end_inset
+
+ denote the probability of exhausting 
+\begin_inset Formula $A$
+\end_inset
+
+ first plus half the probability of exhausting both 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+ at the same time with 
+\begin_inset Formula $a$
+\end_inset
+
+ units of soup 
+\begin_inset Formula $A$
+\end_inset
+
+ remaining and 
+\begin_inset Formula $b$
+\end_inset
+
+ units of the soup 
+\begin_inset Formula $B$
+\end_inset
+
+ remaining.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(a,b)=\begin{cases}
+0 & \text{if }a\leq0\text{ and }b\leq0\\
+1 & \text{else if }a\leq0\text{ and }b>0\\
+0 & \text{else if }a>0\text{ and }b\leq0\\
+\frac{1}{4}(f(a-100,b)+f(a-75,b-25)+f(a-50,b-50)+f(a-75,b-25)) & \text{o.w. }
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $O(N).$
+\end_inset
+
+ We also note that as 
+\begin_inset Formula $N\rightarrow\infty$
+\end_inset
+
+, 
+\begin_inset Formula $f(N,N)\rightarrow1.$
+\end_inset
+
+ To see this, let 
+\begin_inset Formula $Y$
+\end_inset
+
+ denote the surplus number of units distributed 
+\begin_inset Formula $A$
+\end_inset
+
+ compared to 
+\begin_inset Formula $B$
+\end_inset
+
+.
+ Then we have that 
+\begin_inset Formula 
+\begin{align}
+\mathbb{E}[Y] & =\frac{1}{4}(100+50+0-50)=25;\\
+\mathrm{Var}[Y] & =\frac{1}{4}(100^{2}+50^{2}+0+50^{2})-25^{2}=3125.
+\end{align}
+
+\end_inset
+
+Let 
+\begin_inset Formula $S_{n}$
+\end_inset
+
+ denote the total surplus distributing 
+\begin_inset Formula $n$
+\end_inset
+
+ rounds of soups.
+ Then 
+\begin_inset Formula $S_{n}\sim\mathrm{N}(25n,\sqrt{3125n})\simeq\mathrm{N}(25n,60\sqrt{n}).$
+\end_inset
+
+ Then by calculation we see that when 
+\begin_inset Formula $n\geq200,$
+\end_inset
+
+ 
+\begin_inset Formula $\mathbb{P}(S_{n}<0)$
+\end_inset
+
+ is very close to 
+\begin_inset Formula $0$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 813.
+ Largest Sum of Averages
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i,k)$
+\end_inset
+
+ denote the maximum 
+\begin_inset Formula $k$
+\end_inset
+
+-group average sum for 
+\begin_inset Formula $\var A[0:i]$
+\end_inset
+
+.
+ Then it follows that 
+\begin_inset Formula 
+\begin{equation}
+f(i,k)=\begin{cases}
+\fn{RSQ}(0,i) & \text{if }i+1=k\\
+\fn{RSQ}(0,i)/(i+1) & \text{else if }k=1\\
+{\displaystyle \max_{j=k-1}^{i}(f(j-1,k-1)+\fn{RSQ}(j,i)/(i-j+1))} & \text{o.w.}
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is 
+\begin_inset Formula $f(n-1,k).$
+\end_inset
+
+ The overall running time complexity is 
+\begin_inset Formula $O(n^{2})$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Addsec
+LeetCode 837.
+ New 21 Game
+\end_layout
+
+\begin_layout Paragraph
+Dynamic Programming
+\end_layout
+
+\begin_layout Standard
+Let 
+\begin_inset Formula $f(i)=\mathbb{P}(\mathrm{win}\vert x_{t}=i).$
+\end_inset
+
+ Then we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+1 & \text{if }K\leq i\leq\min(N,K+W)\\
+0 & \text{else if }i>N\\
+\sum_{k=1}^{W}\mathbb{P}(\mathrm{win}\vert x_{t+1}=i+k)\mathbb{P}(x_{t+1}=i+k\vert x_{t}=i)=\sum_{k=1}^{W}\frac{1}{W}f(i+k) & \text{o.w. }
+\end{cases}.
+\end{equation}
+
+\end_inset
+
+The final answer is then 
+\begin_inset Formula $f(0).$
+\end_inset
+
+ Note that complexity of the evaluation of 
+\begin_inset Formula $f(0)$
+\end_inset
+
+ is 
+\begin_inset Formula $O(NK)$
+\end_inset
+
+ which is too high to pass the OJ.
+ We thus seek optimizations.
+ Note that for 
+\begin_inset Formula $i\leq K-2,$
+\end_inset
+
+ we have 
+\begin_inset Formula 
+\begin{align}
+f(i) & =\sum_{k=1}^{W}\frac{1}{W}f(i+k),\\
+f(i+1) & =\sum_{k=1}^{W}\frac{1}{W}f(i+1+k),
+\end{align}
+
+\end_inset
+
+from which we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)-f(i+1)=\frac{1}{W}(f(i+1)-f(i+1+k)),
+\end{equation}
+
+\end_inset
+
+whence we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=f(i+1)+\frac{1}{W}(f(i+1)-f(i+1+k))\text{ for }i\leq K-2.
+\end{equation}
+
+\end_inset
+
+Note that when 
+\begin_inset Formula $i=K-1,$
+\end_inset
+
+ we have 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\frac{1}{W}\left(\min(N,K-1+W)-K+1\right).
+\end{equation}
+
+\end_inset
+
+Therefore, it follows that we can rewrite 
+\begin_inset Formula $f$
+\end_inset
+
+ in the following way: 
+\begin_inset Formula 
+\begin{equation}
+f(i)=\begin{cases}
+1 & \text{if }K\leq i\leq\min(N,K+W)\\
+0 & \text{else if }i>\min(N,K+W)\\
+\frac{1}{W}(\min(N,K-1+W)-K+1) & \text{else if }i=K-1\\
+f(i+1)+
+\end{cases}
+\end{equation}
 
 \end_inset
 
@@ -4086,7 +4444,7 @@ Let
 \begin{equation}
 f(i,j)=\begin{cases}
 \max(\var{piles}[i],\var{piles}[j])-\min(\var{pile}[i],\var{piles}[j]) & \text{if }i+1=j\\
-\max(\var{piles}[i]-f(i+1,j),\var{piles}[j]-f(i,j-1) & \text{o.w.}
+\max(\var{piles}[i]-f(i+1,j),\var{piles}[j]-f(i,j-1)) & \text{o.w.}
 \end{cases}.
 \end{equation}
 
