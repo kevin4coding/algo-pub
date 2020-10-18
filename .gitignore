@@ -1,0 +1,6 @@
+*.lyx
+*.tex
+*.lyx#
+*.pdf
+
+!main.pdf
